@@ -1,26 +1,582 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    min-height: 100%;
+    margin: 0;
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-tap-highlight-color: transparent;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote {
+    margin: 0;
+}
+
+img,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    font-size: inherit;
+    text-decoration: inherit;
+}
+
+button {
+    all: unset;
+}
+
+button:focus-visible {
+    outline: revert;
+}
+
+:focus {
+    outline: 0;
+}
+
+::selection {
+    background: var(--theme-cursor-select-bg);
+    color: var(--theme-cursor-select-text);
+}
+
+:root {
+    --size-unit: 16;
+    --size-container-ideal: 1645;
+    --size-container-min: 992px;
+    --size-container-max: 2560px;
+    --size-container: clamp(var(--size-container-min),
+            100vw,
+            var(--size-container-max));
+    --size-font: calc(var(--size-container) / (var(--size-container-ideal) / var(--size-unit)));
+}
+
+@media screen and (max-width: 991px) {
+    :root {
+        --size-container-ideal: 991;
+        --size-container-min: 768px;
+        --size-container-max: 991px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    :root {
+        --size-container-ideal: 767;
+        --size-container-min: 480px;
+        --size-container-max: 767px;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    :root {
+        --size-container-ideal: 479;
+        --size-container-min: 320px;
+        --size-container-max: 479px;
+    }
+}
+
+:root {
+    --swatch-ink: #0a0a0a;
+    --swatch-surface: #141414;
+    --swatch-plum: #2b1e40;
+    --swatch-violet: #7f5fff;
+    --swatch-lilac: #c89fff;
+    --swatch-gold: #e0b46c;
+    --swatch-cream: #f6f4ef;
+    --swatch-sand: #ede9e3;
+
+    --font-heading-stack: var(--font-heading), "Times New Roman", serif;
+    --font-body-stack: var(--font-body), Arial, sans-serif;
+
+    --weight-light: 300;
+    --weight-normal: 400;
+    --weight-medium: 500;
+
+    --size-2: 0.125em;
+    --size-4: 0.25em;
+    --size-8: 0.5em;
+    --size-12: 0.75em;
+    --size-16: 1em;
+    --size-24: 1.5em;
+    --size-32: 2em;
+    --size-40: 2.5em;
+    --size-48: 3em;
+    --size-56: 3.5em;
+    --size-64: 4em;
+    --size-72: 4.5em;
+    --size-80: 5em;
+    --size-88: 5.5em;
+    --size-96: 6em;
+    --size-104: 6.5em;
+    --size-112: 7em;
+    --size-128: 8em;
+    --size-160: 10em;
+    --size-192: 12em;
+    --size-224: 14em;
+    --size-256: 16em;
+    --size-320: 20em;
+
+    --heading-xxl-size: var(--size-128);
+    --heading-xxl-line: 0.9em;
+    --heading-xl-size: var(--size-96);
+    --heading-xl-line: 0.9em;
+    --heading-l-size: var(--size-88);
+    --heading-l-line: 0.9em;
+    --heading-m-size: var(--size-72);
+    --heading-m-line: 0.9em;
+    --heading-s-size: var(--size-64);
+    --heading-s-line: 0.9em;
+    --heading-xs-size: var(--size-56);
+    --heading-xs-line: 1em;
+    --heading-tracking: -0.02em;
+
+    --paragraph-xl-size: 2.5em;
+    --paragraph-xl-line: 1.2em;
+    --paragraph-xl-tracking: -0.01em;
+    --paragraph-l-size: 2em;
+    --paragraph-l-line: 1.2em;
+    --paragraph-l-tracking: -0.01em;
+    --paragraph-m-size: 1.5em;
+    --paragraph-m-line: 1.3em;
+    --paragraph-regular-size: 1.25em;
+    --paragraph-regular-line: 1.3em;
+    --paragraph-s-size: 1.125em;
+    --paragraph-s-line: 1.3em;
+    --paragraph-xs-size: 1em;
+    --paragraph-xs-line: 1.3em;
+    --paragraph-xxs-size: 0.875em;
+    --paragraph-xxs-line: 1.4em;
+
+    --nav-height: 6.5em;
+    --page-padding: 2em;
+    --grid-gap: 2em;
+    --button-height: 3em;
+    --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+    --ease-button: cubic-bezier(0.625, 0.05, 0, 1);
+    --ease-back-out: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@media screen and (max-width: 991px) {
+    :root {
+        --size-24: 1.25em;
+        --size-32: 1.5em;
+        --size-40: 2em;
+        --size-48: 2.5em;
+        --size-56: 2.75em;
+        --size-64: 3.25em;
+        --size-72: 3.5em;
+        --size-80: 4em;
+        --size-88: 4.5em;
+        --size-96: 4.75em;
+        --size-104: 5.25em;
+        --size-112: 5.5em;
+        --size-128: 6.5em;
+        --size-160: 8em;
+        --size-192: 9.5em;
+        --size-224: 11.25em;
+        --size-256: 12.75em;
+        --size-320: 16em;
+
+        --paragraph-xl-size: 2.25em;
+        --paragraph-l-size: 1.75em;
+        --paragraph-m-size: 1.25em;
+        --paragraph-regular-size: 1.125em;
+        --paragraph-s-size: 1em;
+        --paragraph-xs-size: 0.875em;
+        --paragraph-xxs-size: 0.75em;
+
+        --nav-height: 6em;
+        --page-padding: 1.5em;
+        --grid-gap: 1.5em;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    :root {
+        --size-40: 1.75em;
+        --size-48: 2em;
+        --size-56: 2.5em;
+        --size-64: 2.75em;
+        --size-72: 3.25em;
+        --size-80: 3.5em;
+        --size-88: 3.75em;
+        --size-96: 4.25em;
+        --size-104: 4.5em;
+        --size-112: 5em;
+        --size-128: 5.5em;
+        --size-160: 7em;
+        --size-192: 8.25em;
+        --size-224: 9.75em;
+        --size-256: 11.25em;
+        --size-320: 14em;
+
+        --paragraph-xl-size: 2em;
+        --paragraph-l-size: 1.5em;
+        --paragraph-m-size: 1.125em;
+        --paragraph-regular-size: 1em;
+        --paragraph-s-size: 0.875em;
+        --paragraph-xs-size: 0.75em;
+        --paragraph-xxs-size: 0.625em;
+
+        --nav-height: 5em;
+        --page-padding: 1.25em;
+        --grid-gap: 1.25em;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    :root {
+        --size-56: 2.25em;
+        --size-64: 2.5em;
+        --size-72: 2.75em;
+        --size-80: 3em;
+        --size-88: 3.25em;
+        --size-96: 3.5em;
+        --size-104: 4em;
+        --size-112: 4.25em;
+        --size-128: 4.75em;
+        --size-160: 6em;
+        --size-192: 7.25em;
+        --size-224: 8.5em;
+        --size-256: 9.5em;
+        --size-320: 12em;
+
+        --page-padding: 1rem;
+        --grid-gap: 1em;
+    }
+}
+
+.theme-default {
+    --theme-background: var(--swatch-ink);
+    --theme-body-text: var(--swatch-cream);
+    --theme-heading: var(--swatch-cream);
+    --theme-border: var(--swatch-plum);
+    --theme-accent: var(--swatch-gold);
+    --theme-button-bg: var(--swatch-violet);
+    --theme-button-text: var(--swatch-cream);
+    --theme-button-hover-bg: var(--swatch-lilac);
+    --theme-button-hover-text: var(--swatch-ink);
+    --theme-button-icon: var(--swatch-ink);
+    --theme-button-icon-svg: var(--swatch-cream);
+    --theme-button-secondary-bg: var(--swatch-plum);
+    --theme-button-secondary-text: var(--swatch-cream);
+    --theme-button-secondary-hover-bg: var(--swatch-violet);
+    --theme-button-secondary-hover-text: var(--swatch-cream);
+    --theme-button-secondary-icon: var(--swatch-violet);
+    --theme-button-secondary-icon-svg: var(--swatch-cream);
+    --theme-cursor-select-bg: var(--swatch-violet);
+    --theme-cursor-select-text: var(--swatch-cream);
+}
+
+.theme-surface {
+    --theme-background: var(--swatch-surface);
+    --theme-body-text: var(--swatch-cream);
+    --theme-heading: var(--swatch-cream);
+    --theme-border: var(--swatch-plum);
+    --theme-accent: var(--swatch-gold);
+    --theme-button-bg: var(--swatch-violet);
+    --theme-button-text: var(--swatch-cream);
+    --theme-button-hover-bg: var(--swatch-lilac);
+    --theme-button-hover-text: var(--swatch-ink);
+    --theme-button-icon: var(--swatch-ink);
+    --theme-button-icon-svg: var(--swatch-cream);
+    --theme-button-secondary-bg: var(--swatch-plum);
+    --theme-button-secondary-text: var(--swatch-cream);
+    --theme-button-secondary-hover-bg: var(--swatch-violet);
+    --theme-button-secondary-hover-text: var(--swatch-cream);
+    --theme-button-secondary-icon: var(--swatch-violet);
+    --theme-button-secondary-icon-svg: var(--swatch-cream);
+    --theme-cursor-select-bg: var(--swatch-violet);
+    --theme-cursor-select-text: var(--swatch-cream);
+}
+
+.theme-plum {
+    --theme-background: var(--swatch-plum);
+    --theme-body-text: var(--swatch-cream);
+    --theme-heading: var(--swatch-cream);
+    --theme-border: var(--swatch-lilac);
+    --theme-accent: var(--swatch-gold);
+    --theme-button-bg: var(--swatch-gold);
+    --theme-button-text: var(--swatch-ink);
+    --theme-button-hover-bg: var(--swatch-lilac);
+    --theme-button-hover-text: var(--swatch-ink);
+    --theme-button-icon: var(--swatch-ink);
+    --theme-button-icon-svg: var(--swatch-cream);
+    --theme-button-secondary-bg: var(--swatch-ink);
+    --theme-button-secondary-text: var(--swatch-cream);
+    --theme-button-secondary-hover-bg: var(--swatch-violet);
+    --theme-button-secondary-hover-text: var(--swatch-cream);
+    --theme-button-secondary-icon: var(--swatch-violet);
+    --theme-button-secondary-icon-svg: var(--swatch-cream);
+    --theme-cursor-select-bg: var(--swatch-gold);
+    --theme-cursor-select-text: var(--swatch-ink);
+}
+
+.theme-violet {
+    --theme-background: var(--swatch-violet);
+    --theme-body-text: var(--swatch-cream);
+    --theme-heading: var(--swatch-cream);
+    --theme-border: var(--swatch-ink);
+    --theme-accent: var(--swatch-gold);
+    --theme-button-bg: var(--swatch-ink);
+    --theme-button-text: var(--swatch-cream);
+    --theme-button-hover-bg: var(--swatch-gold);
+    --theme-button-hover-text: var(--swatch-ink);
+    --theme-button-icon: var(--swatch-violet);
+    --theme-button-icon-svg: var(--swatch-cream);
+    --theme-button-secondary-bg: var(--swatch-cream);
+    --theme-button-secondary-text: var(--swatch-ink);
+    --theme-button-secondary-hover-bg: var(--swatch-gold);
+    --theme-button-secondary-hover-text: var(--swatch-ink);
+    --theme-button-secondary-icon: var(--swatch-violet);
+    --theme-button-secondary-icon-svg: var(--swatch-cream);
+    --theme-cursor-select-bg: var(--swatch-ink);
+    --theme-cursor-select-text: var(--swatch-cream);
+}
+
+.theme-cream {
+    --theme-background: var(--swatch-cream);
+    --theme-body-text: var(--swatch-ink);
+    --theme-heading: var(--swatch-ink);
+    --theme-border: var(--swatch-plum);
+    --theme-accent: var(--swatch-violet);
+    --theme-button-bg: var(--swatch-violet);
+    --theme-button-text: var(--swatch-cream);
+    --theme-button-hover-bg: var(--swatch-plum);
+    --theme-button-hover-text: var(--swatch-cream);
+    --theme-button-icon: var(--swatch-ink);
+    --theme-button-icon-svg: var(--swatch-cream);
+    --theme-button-secondary-bg: var(--swatch-ink);
+    --theme-button-secondary-text: var(--swatch-cream);
+    --theme-button-secondary-hover-bg: var(--swatch-plum);
+    --theme-button-secondary-hover-text: var(--swatch-cream);
+    --theme-button-secondary-icon: var(--swatch-violet);
+    --theme-button-secondary-icon-svg: var(--swatch-cream);
+    --theme-cursor-select-bg: var(--swatch-violet);
+    --theme-cursor-select-text: var(--swatch-cream);
+}
+
+.theme-sand {
+    --theme-background: var(--swatch-sand);
+    --theme-body-text: var(--swatch-ink);
+    --theme-heading: var(--swatch-ink);
+    --theme-border: var(--swatch-plum);
+    --theme-accent: var(--swatch-violet);
+    --theme-button-bg: var(--swatch-ink);
+    --theme-button-text: var(--swatch-cream);
+    --theme-button-hover-bg: var(--swatch-violet);
+    --theme-button-hover-text: var(--swatch-cream);
+    --theme-button-icon: var(--swatch-violet);
+    --theme-button-icon-svg: var(--swatch-cream);
+    --theme-button-secondary-bg: var(--swatch-plum);
+    --theme-button-secondary-text: var(--swatch-cream);
+    --theme-button-secondary-hover-bg: var(--swatch-violet);
+    --theme-button-secondary-hover-text: var(--swatch-cream);
+    --theme-button-secondary-icon: var(--swatch-gold);
+    --theme-button-secondary-icon-svg: var(--swatch-ink);
+    --theme-cursor-select-bg: var(--swatch-violet);
+    --theme-cursor-select-text: var(--swatch-cream);
+}
+
+body {
+    font-size: var(--size-font);
+    font-family: var(--font-body-stack);
+    font-weight: var(--weight-medium);
+    line-height: var(--paragraph-regular-line);
+    letter-spacing: 0em;
+    background-color: var(--theme-background);
+    color: var(--theme-body-text);
+}
+
+.page-wrapper {
+    overflow: clip;
+}
+
+.main-wrapper {
+    position: relative;
+}
+
+.padding-global {
+    width: 100%;
+    padding-left: var(--page-padding);
+    padding-right: var(--page-padding);
+}
+
+.container-col-12,
+.container-col-10,
+.container-col-08 {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container-col-12 {
+    max-width: 100%;
+}
+
+.container-col-10 {
+    max-width: 83.3333%;
+}
+
+.container-col-08 {
+    max-width: 66.6667%;
+}
+
+@media screen and (max-width: 991px) {
+    .container-col-10 {
+        max-width: 90%;
+    }
+
+    .container-col-08 {
+        max-width: 80%;
+    }
+}
+
+@media screen and (max-width: 479px) {
+
+    .container-col-10,
+    .container-col-08 {
+        max-width: none;
+    }
+}
+
+.heading-xxl,
+.heading-xl,
+.heading-l,
+.heading-m,
+.heading-s,
+.heading-xs {
+    font-family: var(--font-heading-stack);
+    font-weight: var(--weight-normal);
+    letter-spacing: var(--heading-tracking);
+    color: var(--theme-heading);
+}
+
+.heading-xxl {
+    font-size: var(--heading-xxl-size);
+    line-height: var(--heading-xxl-line);
+}
+
+.heading-xl {
+    font-size: var(--heading-xl-size);
+    line-height: var(--heading-xl-line);
+}
+
+.heading-l {
+    font-size: var(--heading-l-size);
+    line-height: var(--heading-l-line);
+}
+
+.heading-m {
+    font-size: var(--heading-m-size);
+    line-height: var(--heading-m-line);
+}
+
+.heading-s {
+    font-size: var(--heading-s-size);
+    line-height: var(--heading-s-line);
+}
+
+.heading-xs {
+    font-size: var(--heading-xs-size);
+    line-height: var(--heading-xs-line);
+}
+
+.paragraph-xl,
+.paragraph-l,
+.paragraph-m,
+.paragraph-regular,
+.paragraph-s,
+.paragraph-xs,
+.paragraph-xxs {
+    font-family: var(--font-body-stack);
+    font-weight: var(--weight-medium);
+}
+
+.paragraph-xl {
+    font-size: var(--paragraph-xl-size);
+    line-height: var(--paragraph-xl-line);
+    letter-spacing: var(--paragraph-xl-tracking);
+}
+
+.paragraph-l {
+    font-size: var(--paragraph-l-size);
+    line-height: var(--paragraph-l-line);
+    letter-spacing: var(--paragraph-l-tracking);
+}
+
+.paragraph-m {
+    font-size: var(--paragraph-m-size);
+    line-height: var(--paragraph-m-line);
+}
+
+.paragraph-regular {
+    font-size: var(--paragraph-regular-size);
+    line-height: var(--paragraph-regular-line);
+}
+
+.paragraph-s {
+    font-size: var(--paragraph-s-size);
+    line-height: var(--paragraph-s-line);
+}
+
+.paragraph-xs {
+    font-size: var(--paragraph-xs-size);
+    line-height: var(--paragraph-xs-line);
+}
+
+.paragraph-xxs {
+    font-size: var(--paragraph-xxs-size);
+    line-height: var(--paragraph-xxs-line);
+}
+
+.split-line {
+    padding-top: 0.26em;
+    padding-bottom: 0.12em;
+    margin-top: -0.26em;
+    margin-bottom: -0.12em;
+}
+
+.split-pending {
+    visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .split-pending {
+        visibility: visible;
+    }
 }
