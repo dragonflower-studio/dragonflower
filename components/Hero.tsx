@@ -11,18 +11,16 @@ import { WaterTexture } from "@/components/WaterTexture";
 gsap.registerPlugin(SplitText);
 
 const CLIENTS = [
-  { name: "IDEO" },
-  { name: "Harvard Chan Center for Health Communication" },
-  { name: "Good Energy" },
-  { name: "Netflix" },
-  { name: "Disney" },
-  { name: "US Department of State" },
-  { name: "Ethereum Foundation" },
-  { name: "WE3" },
-  { name: "Plaid" },
-  { name: "Optimism" },
-  { name: "Espresso" },
-  { name: "Shift Naturals" },
+  { name: "IDEO", logo: "/logos/ideo.svg", width: 287, height: 69 },
+  { name: "Harvard Chan Center", logo: "/logos/harvard.webp", width: 931, height: 702, scale: 1.7 },
+  { name: "Good Energy", logo: "/logos/good-energy.png", width: 288, height: 40 },
+  { name: "Netflix", logo: "/logos/netflix.webp", width: 284, height: 512 },
+  { name: "Disney", logo: "/logos/disney.svg", width: 1041, height: 565 },
+  { name: "Ethereum Foundation", logo: "/logos/ethereum.png", width: 5000, height: 1536 },
+  { name: "WE3", logo: "/logos/we3.png", width: 1030, height: 1030, scale: 1.55 },
+  { name: "Plaid", logo: "/logos/plaid.png", width: 1280, height: 483 },
+  { name: "Espresso", logo: "/logos/espresso.webp", width: 780, height: 227 },
+  { name: "Shift Naturals", logo: "/logos/shift.webp", width: 488, height: 115 },
 ];
 
 

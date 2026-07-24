@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,12 +12,14 @@ const MAX_BOOST = 6;
 const VELOCITY_DIVISOR = 300;
 const SETTLE_DELAY = 140;
 const RUNWAY_CYCLES = 1000;
+const GROUP_COPIES = 2;
 
 export type MarqueeItem = {
   name: string;
   logo?: string;
   width?: number;
   height?: number;
+  scale?: number;
 };
 
 type MarqueeProps = {
@@ -27,24 +29,43 @@ type MarqueeProps = {
 };
 
 function Item({ item }: { item: MarqueeItem }) {
-  if (item.logo) {
-    return (
-      <li className="marquee_item">
+  return (
+    <li className="marquee_item">
+      {item.logo ? (
         <Image
           src={item.logo}
           alt={item.name}
           width={item.width ?? 160}
           height={item.height ?? 40}
           className="marquee_logo"
+          style={{ "--logo-scale": item.scale ?? 1 } as CSSProperties}
         />
-      </li>
-    );
-  }
-
-  return (
-    <li className="marquee_item">
-      <span className="marquee_wordmark">{item.name}</span>
+      ) : (
+        <span className="marquee_wordmark">{item.name}</span>
+      )}
     </li>
+  );
+}
+
+function Group({
+  items,
+  copies,
+  ariaHidden,
+}: {
+  items: MarqueeItem[];
+  copies: number;
+  ariaHidden?: boolean;
+}) {
+  return (
+    <ul
+      className="marquee_group"
+      data-marquee-group={ariaHidden ? undefined : true}
+      aria-hidden={ariaHidden}
+    >
+      {Array.from({ length: copies }).flatMap((_, copy) =>
+        items.map((item) => <Item key={`${copy}-${item.name}`} item={item} />),
+      )}
+    </ul>
   );
 }
 
@@ -134,16 +155,8 @@ export function Marquee({ items, speed = 55, label }: MarqueeProps) {
 
       <div className="marquee_viewport">
         <div className="marquee_track" data-marquee-track>
-          <ul className="marquee_group" data-marquee-group>
-            {items.map((item) => (
-              <Item key={item.name} item={item} />
-            ))}
-          </ul>
-          <ul className="marquee_group" aria-hidden="true">
-            {items.map((item) => (
-              <Item key={item.name} item={item} />
-            ))}
-          </ul>
+          <Group items={items} copies={GROUP_COPIES} />
+          <Group items={items} copies={GROUP_COPIES} ariaHidden />
         </div>
       </div>
     </div>
