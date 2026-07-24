@@ -5,8 +5,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
+import { IconButton } from "@/components/IconButton";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
+
+const LEAD =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, quis nostrud exercitation ullamco laboris.";
 
 const QUOTES = [
   {
@@ -59,6 +63,19 @@ export function Breather() {
         });
       }
 
+      gsap.from(section.querySelectorAll("[data-breather-reveal]"), {
+        y: "1.5em",
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: section.querySelector(".breather_intro"),
+          start: "top 78%",
+          once: true,
+        },
+      });
+
       gsap.from(section.querySelectorAll("[data-breather-quote]"), {
         y: "1.5em",
         opacity: 0,
@@ -84,12 +101,41 @@ export function Breather() {
     >
       <div className="padding-global">
         <div className="container-col-12">
-          <h2
-            data-breather-statement
-            className="breather_statement heading-m split-pending"
-          >
-            We turn complexity into clarity &mdash; without losing the magic.
-          </h2>
+          <div className="breather_intro">
+            <div
+              className="breather_portrait"
+              data-breather-reveal
+              aria-hidden="true"
+            >
+              <span>Your portrait</span>
+            </div>
+
+            <div className="breather_intro-copy">
+              <h2
+                data-breather-statement
+                className="breather_statement heading-m split-pending"
+              >
+                We turn complexity into clarity &mdash; without losing the
+                magic.
+              </h2>
+
+              <p
+                data-breather-lead
+                data-breather-reveal
+                className="breather_lead paragraph-s"
+              >
+                {LEAD}
+              </p>
+
+              <div className="breather_intro-action" data-breather-reveal>
+                <IconButton
+                  href="/about"
+                  label="Our story"
+                  variant="secondary"
+                />
+              </div>
+            </div>
+          </div>
 
           <span className="breather_rule" aria-hidden="true" />
 

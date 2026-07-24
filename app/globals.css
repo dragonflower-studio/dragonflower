@@ -119,8 +119,8 @@ button:focus-visible {
     --swatch-cream: #f6f4ef;
     --swatch-sand: #ede9e3;
 
-    --font-heading-stack: var(--font-heading), "Times New Roman", serif;
-    --font-body-stack: var(--font-body), Arial, sans-serif;
+    --font-heading-stack: var(--font-canela), "Times New Roman", serif;
+    --font-body-stack: var(--font-geist), Arial, sans-serif;
 
     --weight-light: 300;
     --weight-normal: 400;

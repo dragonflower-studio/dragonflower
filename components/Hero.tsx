@@ -113,7 +113,7 @@ export function Hero() {
     >
       <div className="hero-home_texture" aria-hidden="true">
         <div className="hero-home_texture-veins" />
-        <WaterTexture src="/wing-texture.webp" opacity={0.1} />
+        <WaterTexture src="/wing-texture.webp" opacity={0.06} />
       </div>
 
       <div className="hero-home_wrapper">

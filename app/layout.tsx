@@ -5,21 +5,21 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import "./globals.css";
 import "./components.css";
 
-const headingFont = localFont({
+const canela = localFont({
   src: [
     { path: "./fonts/Canela-Light.woff2", weight: "300", style: "normal" },
     { path: "./fonts/Canela-Regular.woff2", weight: "400", style: "normal" },
     { path: "./fonts/Canela-Medium.woff2", weight: "500", style: "normal" },
   ],
   display: "swap",
-  variable: "--font-heading",
+  variable: "--font-canela",
   fallback: ["Times New Roman", "serif"],
 });
 
-const bodyFont = Geist({
+const geist = Geist({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-body",
+  variable: "--font-geist",
 });
 
 export const metadata: Metadata = {
@@ -32,7 +32,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-GB" className={`${headingFont.variable} ${bodyFont.variable}`}>
+    <html lang="en-GB" className={`${canela.variable} ${geist.variable}`}>
       <body className="theme-default">
         <SmoothScroll />
         <div className="page-wrapper">{children}</div>

@@ -2,6 +2,7 @@ import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
 import { Breather } from "@/components/Breather";
 import { Practice } from "@/components/Practice";
+import { Work } from "@/components/Work";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         <Hero />
         <Breather />
         <Practice />
+        <Work />
       </main>
     </>
   );
