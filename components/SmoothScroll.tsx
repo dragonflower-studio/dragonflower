@@ -4,6 +4,7 @@ import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useMountEffect } from "@/hooks/useMountEffect";
+import { setSmoothScroll } from "@/lib/smoothScroll";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,10 +26,12 @@ export function SmoothScroll() {
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(raf);
     gsap.ticker.lagSmoothing(0);
+    setSmoothScroll(lenis);
 
     return () => {
       gsap.ticker.remove(raf);
       lenis.destroy();
+      setSmoothScroll(null);
     };
   });
 
