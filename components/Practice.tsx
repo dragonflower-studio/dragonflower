@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -15,6 +16,7 @@ const PRACTICES = [
     promise: "We uncover the truths that move people and systems.",
     body: "Through deep qualitative work — interviews, synthesis, landscape mapping — we reveal the human tensions behind complex change.",
     theme: "theme-plum",
+    landscape: "/practice-research-landscape.webp",
   },
   {
     number: "02",
@@ -22,6 +24,7 @@ const PRACTICES = [
     promise: "We translate insight into clarity and conviction.",
     body: "We craft the story that aligns teams, inspires audiences, and makes belief possible through positioning, architecture, and brand narrative.",
     theme: "theme-cream",
+    landscape: "/practice-narrative-landscape.webp",
   },
   {
     number: "03",
@@ -29,6 +32,7 @@ const PRACTICES = [
     promise: "We design how ideas move through the world.",
     body: "From frameworks to expressions, we build systems that make the story tangible — through creative strategy, narrative toolkits, playbooks, and more.",
     theme: "theme-violet",
+    landscape: "/practice-strategy-landscape.webp",
   },
 ];
 
@@ -124,6 +128,33 @@ export function Practice() {
           <div className="padding-global">
             <div className="container-col-12">
               <div className="practice_list" data-practice-list>
+                <article
+                  data-practice-card
+                  className="practice_item theme-surface"
+                >
+                  <div className="practice-card is-overview">
+                    <h3 className="practice-card_statement heading-s">
+                      One studio, three practices.
+                    </h3>
+
+                    <ul className="practice-overview">
+                      {PRACTICES.map((item) => (
+                        <li key={item.number} className="practice-overview_item">
+                          <span className="practice-overview_number">
+                            {item.number}
+                          </span>
+                          <span className="practice-overview_title">
+                            {item.title}
+                          </span>
+                          <span className="practice-overview_promise">
+                            {item.promise}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+
                 {PRACTICES.map((item) => (
                   <article
                     key={item.number}
@@ -144,12 +175,14 @@ export function Practice() {
                           {item.promise}
                         </p>
 
-                        <div className="practice-card_media is-portrait">
-                          <span>Image / video here</span>
-                        </div>
-
                         <div className="practice-card_media is-landscape">
-                          <span>Image / video here</span>
+                          <Image
+                            src={item.landscape}
+                            alt=""
+                            fill
+                            sizes="(max-width: 767px) 90vw, 30vw"
+                            className="practice-card_media-img"
+                          />
                         </div>
 
                         <div className="practice-card_aside">

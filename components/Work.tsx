@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -17,6 +18,7 @@ const PROJECTS = [
     lead: "A research-driven reflection on how Ethereum sees itself, how others see it, and how that story shapes the ecosystem's future.",
     body: "Commissioned by Optimism and Espresso, and supported by the Ethereum Foundation, Project Mirror captured 60+ voices across the ecosystem to understand how Ethereum's identity, momentum, and myth were evolving.",
     href: "/work",
+    image: "/work-ethereum.webp",
   },
   {
     number: "02",
@@ -25,6 +27,7 @@ const PROJECTS = [
     lead: "A diagnostic tool revealing how climate shows up across film and television, and how it can do better.",
     body: "We mapped hundreds of scripts, storylines, and character arcs to identify narrative blind spots and the emotional levers that shape public perception, turning representation gaps into a living system of questions.",
     href: "/work",
+    image: "/good-energy.webp",
   },
   {
     number: "03",
@@ -33,6 +36,7 @@ const PROJECTS = [
     lead: "A new language of trust for the future of credit.",
     body: "Through qualitative research, prototyping, and systems design, we shaped the experience and narrative around Linkless, reframing Plaid's central question from can we connect to can we be trusted.",
     href: "/work",
+    image: "/work-plaid.webp",
   },
 ];
 
@@ -142,9 +146,25 @@ export function Work() {
                     </div>
                   </div>
 
-                  <div className="work_media" data-work-reveal aria-hidden="true">
-                    <span>Project image</span>
-                  </div>
+                  {project.image ? (
+                    <div className="work_media" data-work-reveal>
+                      <Image
+                        src={project.image}
+                        alt={`${project.client}, ${project.title}`}
+                        fill
+                        sizes="(max-width: 767px) 90vw, 42vw"
+                        className="work_media-img"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className="work_media is-placeholder"
+                      data-work-reveal
+                      aria-hidden="true"
+                    >
+                      <span>Project image</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

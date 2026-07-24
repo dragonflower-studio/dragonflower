@@ -32,3 +32,8 @@ yarn-error.log*
 
 *.tsbuildinfo
 next-env.d.ts
+
+/public/*.JPG
+/public/*.jpeg
+/public/*.jpg
+/public/82292d2a01fe7cefdc4ad8c847246da36c87f34c.png
