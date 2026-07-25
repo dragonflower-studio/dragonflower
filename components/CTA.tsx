@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -9,7 +9,13 @@ import { IconButton } from "@/components/IconButton";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-export function CTA() {
+const DEFAULT_HEADING = (
+  <>
+    We partner with those who believe complexity deserves <em>beauty</em>.
+  </>
+);
+
+export function CTA({ heading = DEFAULT_HEADING }: { heading?: ReactNode }) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -66,8 +72,7 @@ export function CTA() {
               data-cta-heading
               className="cta_heading heading-m split-pending"
             >
-              We partner with those who believe complexity deserves{" "}
-              <em>beauty</em>.
+              {heading}
             </h2>
 
             <div className="cta_action" data-cta-reveal>
