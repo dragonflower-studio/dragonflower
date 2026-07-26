@@ -13,3 +13,11 @@ export function scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 }
+
+export function resetScroll() {
+  if (instance) {
+    instance.scrollTo(0, { immediate: true });
+  } else {
+    window.scrollTo(0, 0);
+  }
+}

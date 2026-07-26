@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Geist } from "next/font/google";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { ScrollReset } from "@/components/ScrollReset";
 import "./globals.css";
 import "./components.css";
 
@@ -35,6 +36,7 @@ export default function RootLayout({
     <html lang="en-GB" className={`${canela.variable} ${geist.variable}`}>
       <body className="theme-default">
         <SmoothScroll />
+        <ScrollReset />
         <div className="page-wrapper">{children}</div>
       </body>
     </html>
