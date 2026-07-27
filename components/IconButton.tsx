@@ -40,6 +40,7 @@ type IconButtonProps = {
   ariaLabel?: string;
   variant?: "primary" | "secondary";
   withArrow?: boolean;
+  newTab?: boolean;
 };
 
 export function IconButton({
@@ -48,11 +49,20 @@ export function IconButton({
   ariaLabel,
   variant = "primary",
   withArrow = true,
+  newTab = false,
 }: IconButtonProps) {
   const secondary = variant === "secondary";
+  const externalProps = newTab
+    ? { target: "_blank", rel: "noreferrer" }
+    : {};
 
   return (
-    <Link href={href} aria-label={ariaLabel ?? label} className="btn-icon-link">
+    <Link
+      href={href}
+      aria-label={ariaLabel ?? label}
+      className="btn-icon-link"
+      {...externalProps}
+    >
       <div className={`btn-icon-content${secondary ? " is-secondary" : ""}`}>
         <div className="btn-icon-content__mask">
           <span className="btn-icon-content__text">{label}</span>
