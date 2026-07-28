@@ -39,6 +39,13 @@ const PROJECTS: WorkProject[] = [
         height: 1536,
       },
       {
+        src: "/logos/optimism.webp",
+        alt: "Optimism",
+        width: 2498,
+        height: 335,
+        scale: 1.5,
+      },
+      {
         src: "/logos/espresso.webp",
         alt: "Espresso",
         width: 780,

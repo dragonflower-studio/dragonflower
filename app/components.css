@@ -2397,9 +2397,28 @@
   }
 
   .transform_word.is-from,
-  .transform_word.is-to {
+  .transform_to-group {
     justify-self: center;
     text-align: center;
+  }
+
+  .transform_toggle {
+    display: none;
+  }
+
+  .transform_shift,
+  .transform_shift > * {
+    cursor: default;
+  }
+
+  .transform_desc-wrap {
+    grid-template-rows: 1fr;
+  }
+
+  .transform_desc {
+    opacity: 0.75;
+    transform: none;
+    filter: none;
   }
 
   .transform_arrow {

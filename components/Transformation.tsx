@@ -89,14 +89,14 @@ export function Transformation() {
         });
       }
 
-      const shifts = section.querySelectorAll(".transform_shift");
-      gsap.set(shifts, { opacity: 0, y: "1.2em" });
+      const pairs = section.querySelectorAll(".transform_pair");
+      gsap.set(pairs, { opacity: 0, y: "1.2em" });
       ScrollTrigger.create({
         trigger: section.querySelector(".transform_list"),
         start: "top 80%",
         once: true,
         onEnter: () =>
-          gsap.to(shifts, {
+          gsap.to(pairs, {
             opacity: 1,
             y: 0,
             duration: 0.75,
