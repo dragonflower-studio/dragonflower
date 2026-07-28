@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Geist } from "next/font/google";
+import { Figtree } from "next/font/google";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { ScrollReset } from "@/components/ScrollReset";
 import "./globals.css";
@@ -17,10 +17,10 @@ const canela = localFont({
   fallback: ["Times New Roman", "serif"],
 });
 
-const geist = Geist({
+const figtree = Figtree({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-geist",
+  variable: "--font-figtree",
 });
 
 export const metadata: Metadata = {
@@ -33,7 +33,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-GB" className={`${canela.variable} ${geist.variable}`}>
+    <html lang="en-GB" className={`${canela.variable} ${figtree.variable}`}>
       <body className="theme-default">
         <SmoothScroll />
         <ScrollReset />

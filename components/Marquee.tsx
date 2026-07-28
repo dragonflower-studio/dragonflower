@@ -69,7 +69,7 @@ function Group({
   );
 }
 
-export function Marquee({ items, speed = 55, label }: MarqueeProps) {
+export function Marquee({ items, speed = 30, label }: MarqueeProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useGSAP(

@@ -911,7 +911,7 @@
   display: flex;
   align-items: center;
   flex: none;
-  padding: 1em 0.6em;
+  padding: 1em 1.75em;
 }
 
 .marquee_wordmark {
@@ -940,7 +940,7 @@
 
 @media screen and (max-width: 767px) {
   .marquee_item {
-    padding: 0.75em 0.4em;
+    padding: 0.75em 1.1em;
   }
 }
 
