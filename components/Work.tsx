@@ -26,68 +26,13 @@ type WorkProject = {
   image: string;
 };
 
-const PROJECTS: WorkProject[] = [
-  {
-    header:
-      "Understanding Ethereum's current narrative tensions and opportunities",
-    subheader: "Project Mirror",
-    logos: [
-      {
-        src: "/logos/ethereum.png",
-        alt: "Ethereum Foundation",
-        width: 5000,
-        height: 1536,
-      },
-      {
-        src: "/logos/optimism.webp",
-        alt: "Optimism",
-        width: 2498,
-        height: 335,
-        scale: 1.5,
-      },
-      {
-        src: "/logos/espresso.webp",
-        alt: "Espresso",
-        width: 780,
-        height: 227,
-      },
-    ],
-    href: "/work/ethereum",
-    image: "/work-ethereum.webp",
-  },
-  {
-    header:
-      "Revealing how climate shows up across film and television, and how it can do better",
-    subheader: "Climate Reality Check",
-    logos: [
-      {
-        src: "/logos/good-energy.png",
-        alt: "Good Energy",
-        width: 200,
-        height: 200,
-        scale: 1.4,
-      },
-    ],
-    href: "/work",
-    image: "/good-energy.webp",
-  },
-  {
-    header: "A new language of trust for the future of credit",
-    subheader: "Linkless Initiative",
-    logos: [
-      {
-        src: "/logos/plaid.png",
-        alt: "Plaid",
-        width: 1280,
-        height: 483,
-      },
-    ],
-    href: "/work",
-    image: "/work-plaid.webp",
-  },
-];
+type WorkProps = {
+  heading?: string;
+  projects?: WorkProject[];
+};
 
-export function Work() {
+export function Work({ heading, projects }: WorkProps = {}) {
+  const items = projects ?? [];
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -148,14 +93,14 @@ export function Work() {
               data-work-heading
               className="work_heading heading-m split-pending"
             >
-              Selected work
+              {heading}
             </h2>
           </div>
         </div>
       </div>
 
       <div className="work_stack">
-        {PROJECTS.map((project) => (
+        {items.map((project) => (
           <article
             key={project.subheader}
             data-work-panel

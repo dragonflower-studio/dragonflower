@@ -9,34 +9,27 @@ import { IconButton } from "@/components/IconButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const PRACTICES = [
-  {
-    number: "01",
-    title: "Research",
-    promise: "We uncover the truths that move people and systems.",
-    body: "Through deep qualitative work — interviews, synthesis, landscape mapping — we reveal the human tensions behind complex change.",
-    theme: "theme-violet",
-    landscape: "/practice-research-landscape.webp",
-  },
-  {
-    number: "02",
-    title: "Strategy",
-    promise: "We design how ideas move through the world.",
-    body: "From frameworks to expressions, we build systems that make the story tangible — through creative strategy, narrative toolkits, playbooks, and more.",
-    theme: "theme-cream",
-    landscape: "/practice-strategy-landscape.webp",
-  },
-  {
-    number: "03",
-    title: "Narrative",
-    promise: "We translate insight into clarity and conviction.",
-    body: "We craft the story that aligns teams, inspires audiences, and makes belief possible through positioning, architecture, and brand narrative.",
-    theme: "theme-plum",
-    landscape: "/practice-narrative-landscape.webp",
-  },
-];
+type PracticeCard = {
+  number: string;
+  title: string;
+  promise: string;
+  body: string;
+  theme: string;
+  landscape: { src: string; alt?: string };
+};
 
-export function Practice() {
+type PracticeProps = {
+  practices?: PracticeCard[];
+  introHeading?: string;
+  overviewStatement?: string;
+};
+
+export function Practice({
+  practices,
+  introHeading,
+  overviewStatement,
+}: PracticeProps = {}) {
+  const items = practices ?? [];
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -117,7 +110,7 @@ export function Practice() {
         <div className="padding-global">
           <div className="container-col-12">
             <h2 className="heading-m practice_intro-heading">
-              Our work sits at the intersection of inquiry and imagination
+              {introHeading}
             </h2>
           </div>
         </div>
@@ -134,7 +127,7 @@ export function Practice() {
                 >
                   <div className="practice-card is-overview">
                     <h3 className="practice-card_statement heading-s">
-                      One studio, three practices.
+                      {overviewStatement}
                     </h3>
 
                     <div className="practice-cycle">
@@ -194,7 +187,7 @@ export function Practice() {
                   </div>
                 </article>
 
-                {PRACTICES.map((item) => (
+                {items.map((item) => (
                   <article
                     key={item.number}
                     data-practice-card
@@ -215,13 +208,15 @@ export function Practice() {
                         </p>
 
                         <div className="practice-card_media is-landscape">
-                          <Image
-                            src={item.landscape}
-                            alt=""
-                            fill
-                            sizes="(max-width: 767px) 90vw, 30vw"
-                            className="practice-card_media-img"
-                          />
+                          {item.landscape?.src && (
+                            <Image
+                              src={item.landscape.src}
+                              alt={item.landscape.alt ?? ""}
+                              fill
+                              sizes="(max-width: 767px) 90vw, 30vw"
+                              className="practice-card_media-img"
+                            />
+                          )}
                         </div>
 
                         <div className="practice-card_aside">

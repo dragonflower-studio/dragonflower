@@ -8,16 +8,28 @@ import { IconButton } from "@/components/IconButton";
 
 gsap.registerPlugin(SplitText);
 
-const EMAIL = "hello@dragonflower.studio";
-const CALENDLY = "https://calendly.com/dragonflower";
+type SocialLink = { href: string; label: string };
 
-const SOCIAL = [
-  { href: "https://www.linkedin.com", label: "LinkedIn" },
-  { href: "https://www.instagram.com", label: "Instagram" },
-  { href: "https://www.x.com", label: "X" },
-];
+type ContactProps = {
+  heading?: string;
+  copy?: string;
+  calendlyUrl?: string;
+  calendlyLabel?: string;
+  writeLabel?: string;
+  email?: string;
+  social?: SocialLink[];
+};
 
-export function Contact() {
+export function Contact({
+  heading,
+  copy,
+  calendlyUrl,
+  calendlyLabel,
+  writeLabel,
+  email,
+  social,
+}: ContactProps = {}) {
+  const socials = social ?? [];
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -72,33 +84,35 @@ export function Contact() {
               data-contact-heading
               className="contact_heading heading-l split-pending"
             >
-              Lorem ipsum dolor sit amet consectetur.
+              {heading}
             </h1>
 
             <p className="contact_copy paragraph-m" data-contact-reveal>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua, quis
-              nostrud exercitation ullamco laboris.
+              {copy}
             </p>
 
-            <div className="contact_cta" data-contact-reveal>
-              <IconButton
-                href={CALENDLY}
-                label="Book a call"
-                ariaLabel="Book a call"
-                newTab
-              />
-            </div>
+            {calendlyUrl && (
+              <div className="contact_cta" data-contact-reveal>
+                <IconButton
+                  href={calendlyUrl}
+                  label={calendlyLabel ?? ""}
+                  ariaLabel={calendlyLabel ?? ""}
+                  newTab
+                />
+              </div>
+            )}
 
-            <div className="contact_actions" data-contact-reveal>
-              <span className="contact_label">Write to us</span>
-              <a href={`mailto:${EMAIL}`} className="contact_email">
-                {EMAIL}
-              </a>
-            </div>
+            {email && (
+              <div className="contact_actions" data-contact-reveal>
+                <span className="contact_label">{writeLabel}</span>
+                <a href={`mailto:${email}`} className="contact_email">
+                  {email}
+                </a>
+              </div>
+            )}
 
             <ul className="contact_social" data-contact-reveal>
-              {SOCIAL.map((item) => (
+              {socials.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}

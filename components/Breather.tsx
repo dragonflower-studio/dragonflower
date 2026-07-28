@@ -10,10 +10,26 @@ import { IconButton } from "@/components/IconButton";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const LEAD =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, quis nostrud exercitation ullamco laboris.";
+type ImageField = { src: string; alt?: string };
+type CtaLink = { label: string; href: string; newTab?: boolean } | null | undefined;
 
-export function Breather() {
+type BreatherProps = {
+  statement?: string;
+  lead?: string;
+  cta?: CtaLink;
+  founderName?: string;
+  founderRole?: string;
+  portrait?: ImageField;
+};
+
+export function Breather({
+  statement,
+  lead,
+  cta,
+  founderName,
+  founderRole,
+  portrait,
+}: BreatherProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -74,19 +90,19 @@ export function Breather() {
           <div className="breather_intro">
             <figure className="breather_figure" data-breather-reveal>
               <div className="breather_portrait">
-                <Image
-                  src="/founder.webp"
-                  alt="Portrait of Bruno Olmedo Quiroga, founder of Dragonflower"
-                  fill
-                  sizes="(max-width: 767px) 60vw, 34vw"
-                  className="breather_portrait-img"
-                />
+                {portrait?.src && (
+                  <Image
+                    src={portrait.src}
+                    alt={portrait.alt ?? founderName ?? ""}
+                    fill
+                    sizes="(max-width: 767px) 60vw, 34vw"
+                    className="breather_portrait-img"
+                  />
+                )}
               </div>
               <figcaption className="breather_caption">
-                <span className="breather_caption-name">
-                  Bruno Olmedo Quiroga
-                </span>
-                <span className="breather_caption-role">Founder</span>
+                <span className="breather_caption-name">{founderName}</span>
+                <span className="breather_caption-role">{founderRole}</span>
               </figcaption>
             </figure>
 
@@ -95,8 +111,7 @@ export function Breather() {
                 data-breather-statement
                 className="breather_statement heading-m split-pending"
               >
-                We turn complexity into clarity &mdash; without losing the
-                magic.
+                {statement}
               </h2>
 
               <p
@@ -104,16 +119,19 @@ export function Breather() {
                 data-breather-reveal
                 className="breather_lead paragraph-s"
               >
-                {LEAD}
+                {lead}
               </p>
 
-              <div className="breather_intro-action" data-breather-reveal>
-                <IconButton
-                  href="/about"
-                  label="Our story"
-                  variant="secondary"
-                />
-              </div>
+              {cta && (
+                <div className="breather_intro-action" data-breather-reveal>
+                  <IconButton
+                    href={cta.href}
+                    label={cta.label}
+                    variant="secondary"
+                    newTab={cta.newTab}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

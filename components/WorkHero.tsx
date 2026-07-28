@@ -7,7 +7,12 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(SplitText);
 
-export function WorkHero() {
+type WorkHeroProps = {
+  title?: string;
+  sub?: string;
+};
+
+export function WorkHero({ title, sub }: WorkHeroProps = {}) {
   const heroRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -75,13 +80,13 @@ export function WorkHero() {
               data-work-heading
               className="work-hero_title heading-xl split-pending"
             >
-              Clarity in practice
+              {title}
             </h1>
             <p
               data-work-sub
               className="work-hero_sub paragraph-m split-pending"
             >
-              Research, narrative, and strategy.
+              {sub}
             </p>
           </div>
         </div>

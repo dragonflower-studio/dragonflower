@@ -10,23 +10,13 @@ import { IconButton } from "@/components/IconButton";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const DEFAULT_HEADING = (
-  <>
-    We partner with those who believe complexity deserves <em>beauty</em>.
-  </>
-);
-
 type CTAProps = {
   heading?: ReactNode;
-  image?: string;
-  imageAlt?: string;
+  image?: { src: string; alt?: string };
+  button?: { label: string; href: string; newTab?: boolean };
 };
 
-export function CTA({
-  heading = DEFAULT_HEADING,
-  image = "/founder.webp",
-  imageAlt = "Bruno Olmedo Quiroga, founder of Dragonflower",
-}: CTAProps) {
+export function CTA({ heading, image, button }: CTAProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -98,23 +88,28 @@ export function CTA({
             {heading}
           </h2>
 
-          <div className="cta_action" data-cta-reveal>
-            <IconButton
-              href="/contact"
-              label="Let's talk"
-              ariaLabel="Let's talk"
-            />
-          </div>
+          {button && (
+            <div className="cta_action" data-cta-reveal>
+              <IconButton
+                href={button.href}
+                label={button.label}
+                ariaLabel={button.label}
+                newTab={button.newTab}
+              />
+            </div>
+          )}
         </div>
 
         <figure className="cta_media">
-          <Image
-            src={image}
-            alt={imageAlt}
-            fill
-            sizes="(max-width: 767px) 100vw, 50vw"
-            className="cta_img"
-          />
+          {image?.src && (
+            <Image
+              src={image.src}
+              alt={image.alt ?? ""}
+              fill
+              sizes="(max-width: 767px) 100vw, 50vw"
+              className="cta_img"
+            />
+          )}
         </figure>
       </div>
     </section>

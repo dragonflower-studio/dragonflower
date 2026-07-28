@@ -9,23 +9,8 @@ import { IconButton } from "@/components/IconButton";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const QUOTES = [
-  {
-    quote:
-      "This is so clear and at the same time so deep. I feel like I'm walking into a mind castle.",
-    source: "Fintech Executive, CSO",
-  },
-  {
-    quote:
-      "I told my boss this wouldn't be possible. But in two sentences, it became possible.",
-    source: "Fintech Legal Counsel",
-  },
-  {
-    quote:
-      "The complexity and aspiration of why we exist is perfectly captured by that sentence.",
-    source: "Food & Bev Founder, CEO",
-  },
-];
+type Quote = { quote: string; source: string };
+type CtaLink = { label: string; href: string; newTab?: boolean } | null | undefined;
 
 const AUTOPLAY_MS = 6000;
 const SLIDE_DURATION = 0.9;
@@ -60,7 +45,13 @@ function ChevronRight() {
   );
 }
 
-export function Testimonials() {
+type TestimonialsProps = {
+  quotes?: Quote[];
+  label?: string;
+  cta?: CtaLink;
+};
+
+export function Testimonials({ quotes, label, cta }: TestimonialsProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -68,8 +59,9 @@ export function Testimonials() {
   const animatingRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const count = QUOTES.length;
-  const slides = [...QUOTES, QUOTES[0]];
+  const items = quotes ?? [];
+  const count = items.length;
+  const slides = count ? [...items, items[0]] : [];
 
   const reduced = () =>
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -169,6 +161,8 @@ export function Testimonials() {
     return stopAuto;
   });
 
+  if (!count) return null;
+
   return (
     <section
       ref={sectionRef}
@@ -180,7 +174,7 @@ export function Testimonials() {
         <div className="container-col-12">
           <div className="testimonials_inner">
             <span className="testimonials_label" data-testimonial-reveal>
-              Testimonials
+              {label}
             </span>
 
             <div
@@ -228,13 +222,16 @@ export function Testimonials() {
                 </button>
               </div>
 
-              <div className="testimonials_cta">
-                <IconButton
-                  href="/contact"
-                  label="Book an intro call"
-                  ariaLabel="Book an intro call"
-                />
-              </div>
+              {cta && (
+                <div className="testimonials_cta">
+                  <IconButton
+                    href={cta.href}
+                    label={cta.label}
+                    ariaLabel={cta.label}
+                    newTab={cta.newTab}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

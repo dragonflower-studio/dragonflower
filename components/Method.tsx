@@ -9,28 +9,17 @@ import { IconButton } from "@/components/IconButton";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const STEPS = [
-  {
-    name: "Research",
-    promise: "reveals the human truth",
-    capabilities:
-      "Qualitative interviews, landscape mapping, synthesis, workshops",
-  },
-  {
-    name: "Strategy",
-    promise: "ensures it moves through the world",
-    capabilities:
-      "Narrative toolkits, playbooks, creative strategies, frameworks, campaigns",
-  },
-  {
-    name: "Narrative",
-    promise: "builds the story around it",
-    capabilities:
-      "Positioning, architecture, storytelling, brand narrative, pitch decks",
-  },
-];
+type Step = { name: string; promise?: string; capabilities?: string };
+type CtaLink = { label: string; href: string; newTab?: boolean } | null | undefined;
 
-export function Method() {
+type MethodProps = {
+  title?: string;
+  steps?: Step[];
+  cta?: CtaLink;
+};
+
+export function Method({ title, steps, cta }: MethodProps = {}) {
+  const items = steps ?? [];
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -90,11 +79,11 @@ export function Method() {
             data-method-title
             className="method_title heading-m split-pending"
           >
-            The method
+            {title}
           </h2>
 
           <div className="method_list">
-            {STEPS.map((step) => (
+            {items.map((step) => (
               <article
                 key={step.name}
                 className="method_row"
@@ -109,13 +98,16 @@ export function Method() {
             ))}
           </div>
 
-          <div className="method_action" data-method-row>
-            <IconButton
-              href="/practice"
-              label="Read more about the practice"
-              variant="secondary"
-            />
-          </div>
+          {cta && (
+            <div className="method_action" data-method-row>
+              <IconButton
+                href={cta.href}
+                label={cta.label}
+                variant="secondary"
+                newTab={cta.newTab}
+              />
+            </div>
+          )}
         </div>
       </div>
     </section>

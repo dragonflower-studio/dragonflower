@@ -7,15 +7,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "npx serve@latest out",
-    "lint": "eslint"
+    "lint": "eslint",
+    "studio": "sanity dev",
+    "studio:deploy": "sanity deploy",
+    "seed": "sanity exec scripts/seed.ts --with-user-token"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@sanity/icons": "^5.2.1",
+    "@sanity/image-url": "^2.1.1",
+    "@sanity/orderable-document-list": "^2.0.18",
+    "@sanity/vision": "^6.7.0",
     "gsap": "^3.15.0",
     "lenis": "^1.3.25",
+    "lexorank": "^1.0.5",
     "next": "16.2.11",
+    "next-sanity": "^13.2.2",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "sanity": "^6.7.0",
+    "styled-components": "^6.4.4"
   },
   "devDependencies": {
     "@types/node": "^20",

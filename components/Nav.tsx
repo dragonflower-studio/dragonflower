@@ -7,12 +7,8 @@ import { useGSAP } from "@gsap/react";
 import { IconButton } from "@/components/IconButton";
 import { useMountEffect } from "@/hooks/useMountEffect";
 
-const NAV_LINKS = [
-  { href: "/practice", label: "Practice", aria: "Practice link" },
-  { href: "/work", label: "Work", aria: "Work link" },
-  { href: "/about", label: "About", aria: "About link" },
-  { href: "/contact", label: "Contact", aria: "Contact link" },
-];
+type NavLink = { href: string; label: string; newTab?: boolean };
+type CtaLink = { label: string; href: string; newTab?: boolean };
 
 const THEME_PREFIX = "theme-";
 const DEFAULT_THEME = "theme-default";
@@ -62,7 +58,13 @@ function buildMenuTimeline(root: HTMLElement) {
     );
 }
 
-export function Nav() {
+type NavProps = {
+  navLinks?: NavLink[];
+  bookCall?: CtaLink;
+};
+
+export function Nav({ navLinks, bookCall }: NavProps = {}) {
+  const links = navLinks ?? [];
   const navRef = useRef<HTMLElement>(null);
   const menuTimeline = useRef<gsap.core.Timeline | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -170,12 +172,13 @@ export function Nav() {
 
       <nav className="nav-links" aria-label="Primary">
         <div className="nav-links_wrapper">
-          {NAV_LINKS.map((link) => (
+          {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              aria-label={link.aria}
+              aria-label={link.label}
               className="nav-link"
+              {...(link.newTab ? { target: "_blank", rel: "noreferrer" } : {})}
             >
               <span className="nav-link-text">{link.label}</span>
               <span className="nav-link-underline" />
@@ -183,13 +186,16 @@ export function Nav() {
           ))}
         </div>
 
-        <div className="nav-menu-button">
-          <IconButton
-            href="/contact"
-            label="Book a call"
-            ariaLabel="Book a call"
-          />
-        </div>
+        {bookCall && (
+          <div className="nav-menu-button">
+            <IconButton
+              href={bookCall.href}
+              label={bookCall.label}
+              ariaLabel={bookCall.label}
+              newTab={bookCall.newTab}
+            />
+          </div>
+        )}
       </nav>
 
       <div className="padding-global">
@@ -205,11 +211,14 @@ export function Nav() {
 
               <div className="nav-button">
                 <div className="nav-button_wrap">
-                  <IconButton
-                    href="/contact"
-                    label="Book a call"
-                    ariaLabel="Book a call"
-                  />
+                  {bookCall && (
+                    <IconButton
+                      href={bookCall.href}
+                      label={bookCall.label}
+                      ariaLabel={bookCall.label}
+                      newTab={bookCall.newTab}
+                    />
+                  )}
                 </div>
                 <div className="menu-button">
                   <button

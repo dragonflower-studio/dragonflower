@@ -8,7 +8,14 @@ import { IconButton } from "@/components/IconButton";
 
 gsap.registerPlugin(SplitText);
 
-export function NotFound() {
+type NotFoundProps = {
+  code?: string;
+  heading?: string;
+  copy?: string;
+  buttonLabel?: string;
+};
+
+export function NotFound({ code, heading, copy, buttonLabel }: NotFoundProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -64,20 +71,19 @@ export function NotFound() {
         <div className="container-col-12">
           <div className="not-found_inner">
             <span className="not-found_code" data-nf-reveal>
-              Error 404
+              {code}
             </span>
             <h1
               data-nf-heading
               className="not-found_heading heading-l split-pending"
             >
-              This page isn&rsquo;t here.
+              {heading}
             </h1>
             <p className="not-found_copy paragraph-m" data-nf-reveal>
-              The link may be broken, or the page may have moved. Everything
-              else is still where you left it.
+              {copy}
             </p>
             <div className="not-found_action" data-nf-reveal>
-              <IconButton href="/" label="Back home" ariaLabel="Back home" />
+              <IconButton href="/" label={buttonLabel ?? ""} ariaLabel={buttonLabel ?? ""} />
             </div>
           </div>
         </div>

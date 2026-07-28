@@ -9,16 +9,27 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const STUDIO_LEAD =
-  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+type ImageField = { src: string; alt?: string };
 
-const STUDIO_BODY =
-  "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.";
+type StudioProps = {
+  title?: string;
+  lead?: string;
+  body?: string;
+  founderBio?: string;
+  founderName?: string;
+  founderRole?: string;
+  portrait?: ImageField;
+};
 
-const FOUNDER_BIO =
-  "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium.";
-
-export function Studio() {
+export function Studio({
+  title,
+  lead,
+  body,
+  founderBio,
+  founderName,
+  founderRole,
+  portrait,
+}: StudioProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -98,38 +109,38 @@ export function Studio() {
               data-studio-title
               className="studio_title heading-m split-pending"
             >
-              The studio
+              {title}
             </h2>
           </div>
 
           <div className="studio_grid">
             <div className="studio_col-text">
               <p className="studio_lead paragraph-l" data-studio-reveal>
-                {STUDIO_LEAD}
+                {lead}
               </p>
               <p className="studio_body paragraph-s" data-studio-reveal>
-                {STUDIO_BODY}
+                {body}
               </p>
               <p className="studio_founder-bio paragraph-s" data-studio-reveal>
-                {FOUNDER_BIO}
+                {founderBio}
               </p>
             </div>
 
             <figure className="studio_figure">
               <div className="studio_portrait">
-                <Image
-                  src="/founder.webp"
-                  alt="Portrait of Bruno Olmedo Quiroga, founder of Dragonflower"
-                  fill
-                  sizes="(max-width: 767px) 100vw, 40vw"
-                  className="studio_portrait-img"
-                />
+                {portrait?.src && (
+                  <Image
+                    src={portrait.src}
+                    alt={portrait.alt ?? founderName ?? ""}
+                    fill
+                    sizes="(max-width: 767px) 100vw, 40vw"
+                    className="studio_portrait-img"
+                  />
+                )}
               </div>
               <figcaption className="studio_caption" data-studio-reveal>
-                <span className="studio_caption-name">
-                  Bruno Olmedo Quiroga
-                </span>
-                <span className="studio_caption-role">Founder</span>
+                <span className="studio_caption-name">{founderName}</span>
+                <span className="studio_caption-role">{founderRole}</span>
               </figcaption>
             </figure>
           </div>

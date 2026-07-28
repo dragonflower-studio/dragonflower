@@ -8,7 +8,15 @@ import { IconButton } from "@/components/IconButton";
 
 gsap.registerPlugin(SplitText);
 
-export function AboutHero() {
+type CtaLink = { label: string; href: string; newTab?: boolean } | null | undefined;
+
+type AboutHeroProps = {
+  heading?: string;
+  copy?: string;
+  cta?: CtaLink;
+};
+
+export function AboutHero({ heading, copy, cta }: AboutHeroProps = {}) {
   const heroRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -82,24 +90,26 @@ export function AboutHero() {
               data-about-heading
               className="about-hero_title heading-xl split-pending"
             >
-              Change requires belief. Belief requires clarity.
+              {heading}
             </h1>
 
             <p
               data-about-copy
               className="about-hero_copy paragraph-m split-pending"
             >
-              Dragonflower was born to humanize complexity that has the power to
-              change the world.
+              {copy}
             </p>
 
-            <div className="about-hero_action" data-about-reveal>
-              <IconButton
-                href="/contact"
-                label="Let's work together"
-                ariaLabel="Let's work together"
-              />
-            </div>
+            {cta && (
+              <div className="about-hero_action" data-about-reveal>
+                <IconButton
+                  href={cta.href}
+                  label={cta.label}
+                  ariaLabel={cta.label}
+                  newTab={cta.newTab}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

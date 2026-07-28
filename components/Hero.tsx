@@ -5,25 +5,30 @@ import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
 import { IconButton } from "@/components/IconButton";
-import { Marquee } from "@/components/Marquee";
+import { Marquee, type MarqueeItem } from "@/components/Marquee";
 import { WaterTexture } from "@/components/WaterTexture";
 
 gsap.registerPlugin(SplitText);
 
-const CLIENTS = [
-  { name: "IDEO", logo: "/logos/ideo.svg", width: 287, height: 69 },
-  { name: "Harvard Chan Center", logo: "/logos/harvard.webp", width: 931, height: 702, scale: 1.7 },
-  { name: "Good Energy", logo: "/logos/good-energy.png", width: 200, height: 200, scale: 1.4 },
-  { name: "Netflix", logo: "/logos/netflix.png", width: 1800, height: 756 },
-  { name: "Disney", logo: "/logos/disney.svg", width: 1041, height: 565 },
-  { name: "Ethereum Foundation", logo: "/logos/ethereum.png", width: 5000, height: 1536 },
-  { name: "WE3", logo: "/logos/we3.png", width: 1030, height: 1030, scale: 1.55 },
-  { name: "Espresso", logo: "/logos/espresso.webp", width: 780, height: 227 },
-  { name: "Shift Naturals", logo: "/logos/shift.webp", width: 488, height: 115 },
-];
+type CtaLink = { label: string; href: string; newTab?: boolean } | null | undefined;
 
+type HeroProps = {
+  heading?: string;
+  body?: string;
+  primaryCta?: CtaLink;
+  secondaryCta?: CtaLink;
+  clients?: MarqueeItem[];
+  clientsLabel?: string;
+};
 
-export function Hero() {
+export function Hero({
+  heading,
+  body,
+  primaryCta,
+  secondaryCta,
+  clients = [],
+  clientsLabel,
+}: HeroProps = {}) {
   const heroRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -119,30 +124,33 @@ export function Hero() {
             <div className="container-col-12">
               <div className="hero-home_content">
                 <h1 data-hero-heading className="heading-xl split-pending">
-                  Dragonflower is a strategic research and narrative design
-                  studio.
+                  {heading}
                 </h1>
 
                 <div className="hero-home_text-wrap">
                   <p data-hero-copy className="paragraph-m split-pending">
-                    We uncover the human truths within complex systems and turn
-                    them into stories, strategies, and movements people can
-                    believe in.
+                    {body}
                   </p>
                 </div>
 
                 <div className="btn-group">
-                  <IconButton
-                    href="/practice"
-                    label="Practice"
-                    variant="secondary"
-                    withArrow={false}
-                  />
-                  <IconButton
-                    href="/contact"
-                    label="Book a call"
-                    ariaLabel="Book a call"
-                  />
+                  {secondaryCta && (
+                    <IconButton
+                      href={secondaryCta.href}
+                      label={secondaryCta.label}
+                      variant="secondary"
+                      withArrow={false}
+                      newTab={secondaryCta.newTab}
+                    />
+                  )}
+                  {primaryCta && (
+                    <IconButton
+                      href={primaryCta.href}
+                      label={primaryCta.label}
+                      ariaLabel={primaryCta.label}
+                      newTab={primaryCta.newTab}
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -150,7 +158,7 @@ export function Hero() {
         </div>
 
         <div className="hero-home_marquee is-intro-pending">
-          <Marquee items={CLIENTS} label="Clients & collaborators" />
+          <Marquee items={clients} label={clientsLabel} />
         </div>
       </div>
     </header>

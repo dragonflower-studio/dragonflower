@@ -9,22 +9,25 @@ import { scrollToTop } from "@/lib/smoothScroll";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SITEMAP = [
-  { href: "/practice", label: "Practice" },
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
+type FooterLink = { href: string; label: string; newTab?: boolean };
 
-const SOCIAL = [
-  { href: "https://www.linkedin.com", label: "LinkedIn" },
-  { href: "https://www.instagram.com", label: "Instagram" },
-  { href: "https://www.x.com", label: "X" },
-];
+type FooterProps = {
+  navLinks?: FooterLink[];
+  social?: FooterLink[];
+  email?: string;
+  footerLead?: string;
+  siteName?: string;
+};
 
-const EMAIL = "hello@dragonflower.studio";
-
-export function Footer() {
+export function Footer({
+  navLinks,
+  social,
+  email,
+  footerLead,
+  siteName,
+}: FooterProps = {}) {
+  const sitemap = navLinks ?? [];
+  const socials = social ?? [];
   const footerRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -64,22 +67,24 @@ export function Footer() {
           <div className="footer_top">
             <div className="footer_contact">
               <p className="footer_lead paragraph-s" data-footer-reveal>
-                Have a story worth telling?
+                {footerLead}
               </p>
-              <a
-                href={`mailto:${EMAIL}`}
-                className="footer_email"
-                data-footer-reveal
-              >
-                {EMAIL}
-              </a>
+              {email && (
+                <a
+                  href={`mailto:${email}`}
+                  className="footer_email"
+                  data-footer-reveal
+                >
+                  {email}
+                </a>
+              )}
             </div>
 
             <nav className="footer_nav" aria-label="Footer">
               <div className="footer_col" data-footer-reveal>
                 <span className="footer_col-label">Sitemap</span>
                 <ul className="footer_list">
-                  {SITEMAP.map((item) => (
+                  {sitemap.map((item) => (
                     <li key={item.href}>
                       <Link href={item.href} className="footer_link">
                         <span className="footer_link-text">{item.label}</span>
@@ -93,7 +98,7 @@ export function Footer() {
               <div className="footer_col" data-footer-reveal>
                 <span className="footer_col-label">Connect</span>
                 <ul className="footer_list">
-                  {SOCIAL.map((item) => (
+                  {socials.map((item) => (
                     <li key={item.href}>
                       <a
                         href={item.href}
@@ -115,14 +120,13 @@ export function Footer() {
             <div
               className="footer_wordmark"
               role="img"
-              aria-label="Dragonflower Studio"
+              aria-label={siteName}
             />
           </div>
 
           <div className="footer_base">
             <p className="footer_legal">
-              &copy; {new Date().getFullYear()} Dragonflower Studio. All rights
-              reserved.
+              &copy; {new Date().getFullYear()} {siteName}. All rights reserved.
             </p>
             <div className="footer_base-right">
               <Link href="/privacy" className="footer_link">

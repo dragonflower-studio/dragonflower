@@ -8,7 +8,14 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function Showcase() {
+type ImageField = { src: string; alt?: string };
+
+type ShowcaseProps = {
+  desktop?: ImageField;
+  mobile?: ImageField;
+};
+
+export function Showcase({ desktop, mobile }: ShowcaseProps = {}) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -44,20 +51,24 @@ export function Showcase() {
       className="section_showcase theme-default"
     >
       <div className="showcase_bg" aria-hidden="true">
-        <Image
-          src="/testimonials-desktop.webp"
-          alt=""
-          fill
-          sizes="100vw"
-          className="showcase_img is-desktop"
-        />
-        <Image
-          src="/testimonials-mobile.webp"
-          alt=""
-          fill
-          sizes="100vw"
-          className="showcase_img is-mobile"
-        />
+        {desktop?.src && (
+          <Image
+            src={desktop.src}
+            alt=""
+            fill
+            sizes="100vw"
+            className="showcase_img is-desktop"
+          />
+        )}
+        {mobile?.src && (
+          <Image
+            src={mobile.src}
+            alt=""
+            fill
+            sizes="100vw"
+            className="showcase_img is-mobile"
+          />
+        )}
       </div>
     </section>
   );

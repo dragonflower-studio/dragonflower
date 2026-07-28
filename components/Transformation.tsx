@@ -8,32 +8,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const PAIRS = [
-  {
-    from: "Confusion",
-    to: "Conviction",
-    description:
-      "We turn tangled complexity into a clear point of view people can act on.",
-  },
-  {
-    from: "Data",
-    to: "Desire",
-    description:
-      "We move past the numbers to the human wants that make people care.",
-  },
-  {
-    from: "Insight",
-    to: "Story",
-    description:
-      "We shape raw understanding into a narrative that carries meaning.",
-  },
-  {
-    from: "Noise",
-    to: "Myth",
-    description:
-      "We cut through the noise to build the enduring story a brand is known by.",
-  },
-];
+type Pair = { from: string; to: string; description?: string };
 
 function ShiftArrow() {
   return (
@@ -55,7 +30,13 @@ function ShiftArrow() {
   );
 }
 
-export function Transformation() {
+type TransformationProps = {
+  heading?: string;
+  pairs?: Pair[];
+};
+
+export function Transformation({ heading, pairs }: TransformationProps = {}) {
+  const items = pairs ?? [];
   const sectionRef = useRef<HTMLElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -121,11 +102,11 @@ export function Transformation() {
             data-transform-heading
             className="transform_heading heading-s split-pending"
           >
-            We believe clarity is an act of creation that shifts reality
+            {heading}
           </h2>
 
           <ul className="transform_list">
-            {PAIRS.map((pair, index) => {
+            {items.map((pair, index) => {
               const open = openIndex === index;
               return (
                 <li

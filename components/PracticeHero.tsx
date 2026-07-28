@@ -7,7 +7,13 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(SplitText);
 
-export function PracticeHero() {
+type PracticeHeroProps = {
+  meta?: string;
+  title?: string;
+  sub?: string;
+};
+
+export function PracticeHero({ meta, title, sub }: PracticeHeroProps = {}) {
   const heroRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -79,19 +85,18 @@ export function PracticeHero() {
       <div className="padding-global">
         <div className="container-col-12">
           <div className="practice-hero_inner">
-            <span className="practice-hero_meta">One studio, three practices</span>
+            <span className="practice-hero_meta">{meta}</span>
             <h1
               data-practice-heading
               className="practice-hero_title heading-xl split-pending"
             >
-              Our work sits at the intersection of inquiry and imagination
+              {title}
             </h1>
             <p
               data-practice-sub
               className="practice-hero_sub paragraph-m split-pending"
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              {sub}
             </p>
           </div>
         </div>
