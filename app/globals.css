@@ -244,13 +244,13 @@ button:focus-visible {
         --size-256: 11.25em;
         --size-320: 14em;
 
-        --paragraph-xl-size: 2em;
-        --paragraph-l-size: 1.5em;
-        --paragraph-m-size: 1.125em;
-        --paragraph-regular-size: 1em;
-        --paragraph-s-size: 0.875em;
-        --paragraph-xs-size: 0.75em;
-        --paragraph-xxs-size: 0.625em;
+        --paragraph-xl-size: 2.25em;
+        --paragraph-l-size: 1.7em;
+        --paragraph-m-size: 1.4em;
+        --paragraph-regular-size: 1.25em;
+        --paragraph-s-size: 1.15em;
+        --paragraph-xs-size: 1em;
+        --paragraph-xxs-size: 0.85em;
 
         --nav-height: 5em;
         --page-padding: 1.25em;

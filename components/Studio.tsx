@@ -89,7 +89,7 @@ export function Studio() {
       ref={sectionRef}
       id="section_studio"
       data-theme-section
-      className="section_studio theme-default"
+      className="section_studio theme-cream"
     >
       <div className="padding-global">
         <div className="container-col-12">

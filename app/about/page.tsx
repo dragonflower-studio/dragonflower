@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Nav } from "@/components/Nav";
 import { AboutHero } from "@/components/AboutHero";
-import { AboutStatement } from "@/components/AboutStatement";
 import { Transformation } from "@/components/Transformation";
 import { Method } from "@/components/Method";
 import { Studio } from "@/components/Studio";
@@ -20,7 +19,6 @@ export default function About() {
       <Nav />
       <main className="main-wrapper">
         <AboutHero />
-        <AboutStatement />
         <Studio />
         <Transformation />
         <Method />

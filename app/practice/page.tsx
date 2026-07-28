@@ -59,36 +59,8 @@ const PRACTICES: PracticeData[] = [
   },
   {
     number: "02",
-    title: "Narrative",
-    theme: "theme-surface",
-    promise: "We translate insight into clarity and conviction.",
-    overview: [
-      "We craft the story that aligns teams, inspires audiences, and makes belief possible through positioning, architecture, and brand narrative.",
-      LOREM_BODY,
-    ],
-    approach: LOREM_APPROACH,
-    capabilities: [
-      "Positioning",
-      "Architecture",
-      "Storytelling",
-      "Brand narrative",
-      "Pitch decks",
-    ],
-    deliverables: [
-      "Lorem ipsum dolor",
-      "Sit amet consectetur",
-      "Adipiscing elit",
-      "Tempor incididunt",
-    ],
-    image: {
-      src: "/practice-narrative-landscape.webp",
-      alt: "Narrative in practice",
-    },
-  },
-  {
-    number: "03",
     title: "Strategy",
-    theme: "theme-cream",
+    theme: "theme-surface",
     promise: "We design how ideas move through the world.",
     overview: [
       "From frameworks to expressions, we build systems that make the story tangible — through creative strategy, narrative toolkits, playbooks, and more.",
@@ -111,6 +83,34 @@ const PRACTICES: PracticeData[] = [
     image: {
       src: "/practice-strategy-landscape.webp",
       alt: "Strategy in practice",
+    },
+  },
+  {
+    number: "03",
+    title: "Narrative",
+    theme: "theme-cream",
+    promise: "We translate insight into clarity and conviction.",
+    overview: [
+      "We craft the story that aligns teams, inspires audiences, and makes belief possible through positioning, architecture, and brand narrative.",
+      LOREM_BODY,
+    ],
+    approach: LOREM_APPROACH,
+    capabilities: [
+      "Positioning",
+      "Architecture",
+      "Storytelling",
+      "Brand narrative",
+      "Pitch decks",
+    ],
+    deliverables: [
+      "Lorem ipsum dolor",
+      "Sit amet consectetur",
+      "Adipiscing elit",
+      "Tempor incididunt",
+    ],
+    image: {
+      src: "/practice-narrative-landscape.webp",
+      alt: "Narrative in practice",
     },
   },
 ];

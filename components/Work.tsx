@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,31 +10,71 @@ import { IconButton } from "@/components/IconButton";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-const PROJECTS = [
+type WorkLogo = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  scale?: number;
+};
+
+type WorkProject = {
+  header: string;
+  subheader: string;
+  logos: WorkLogo[];
+  href: string;
+  image: string;
+};
+
+const PROJECTS: WorkProject[] = [
   {
-    number: "01",
-    client: "Ethereum",
-    title: "Project Mirror",
-    lead: "A research-driven reflection on how Ethereum sees itself, how others see it, and how that story shapes the ecosystem's future.",
-    body: "Commissioned by Optimism and Espresso, and supported by the Ethereum Foundation, Project Mirror captured 60+ voices across the ecosystem to understand how Ethereum's identity, momentum, and myth were evolving.",
-    href: "/work",
+    header:
+      "Understanding Ethereum's current narrative tensions and opportunities",
+    subheader: "Project Mirror",
+    logos: [
+      {
+        src: "/logos/ethereum.png",
+        alt: "Ethereum Foundation",
+        width: 5000,
+        height: 1536,
+      },
+      {
+        src: "/logos/espresso.webp",
+        alt: "Espresso",
+        width: 780,
+        height: 227,
+      },
+    ],
+    href: "/work/ethereum",
     image: "/work-ethereum.webp",
   },
   {
-    number: "02",
-    client: "Good Energy",
-    title: "Climate Reality Check",
-    lead: "A diagnostic tool revealing how climate shows up across film and television, and how it can do better.",
-    body: "We mapped hundreds of scripts, storylines, and character arcs to identify narrative blind spots and the emotional levers that shape public perception, turning representation gaps into a living system of questions.",
+    header:
+      "Revealing how climate shows up across film and television, and how it can do better",
+    subheader: "Climate Reality Check",
+    logos: [
+      {
+        src: "/logos/good-energy.png",
+        alt: "Good Energy",
+        width: 200,
+        height: 200,
+        scale: 1.4,
+      },
+    ],
     href: "/work",
     image: "/good-energy.webp",
   },
   {
-    number: "03",
-    client: "Plaid",
-    title: "Linkless Initiative",
-    lead: "A new language of trust for the future of credit.",
-    body: "Through qualitative research, prototyping, and systems design, we shaped the experience and narrative around Linkless, reframing Plaid's central question from can we connect to can we be trusted.",
+    header: "A new language of trust for the future of credit",
+    subheader: "Linkless Initiative",
+    logos: [
+      {
+        src: "/logos/plaid.png",
+        alt: "Plaid",
+        width: 1280,
+        height: 483,
+      },
+    ],
     href: "/work",
     image: "/work-plaid.webp",
   },
@@ -110,7 +150,7 @@ export function Work() {
       <div className="work_stack">
         {PROJECTS.map((project) => (
           <article
-            key={project.title}
+            key={project.subheader}
             data-work-panel
             className="work_panel"
           >
@@ -118,29 +158,37 @@ export function Work() {
               <div className="container-col-12">
                 <div className="work_panel-grid">
                   <div className="work_panel-text">
-                    <p className="work_client" data-work-reveal>
-                      {project.client}
-                    </p>
+                    <div className="work_logos" data-work-reveal>
+                      {project.logos.map((logo) => (
+                        <Image
+                          key={logo.src}
+                          src={logo.src}
+                          alt={logo.alt}
+                          width={logo.width}
+                          height={logo.height}
+                          className="work_logo"
+                          style={
+                            {
+                              "--logo-scale": logo.scale ?? 1,
+                            } as CSSProperties
+                          }
+                        />
+                      ))}
+                    </div>
 
-                    <h3 className="work_title-row" data-work-reveal>
-                      <span className="work_number">{project.number}</span>
-                      <span className="work_title heading-m">
-                        {project.title}
-                      </span>
+                    <h3 className="work_header heading-xs" data-work-reveal>
+                      {project.header}
                     </h3>
 
-                    <p className="work_lead paragraph-m" data-work-reveal>
-                      {project.lead}
-                    </p>
-                    <p className="work_body paragraph-s" data-work-reveal>
-                      {project.body}
+                    <p className="work_subheader" data-work-reveal>
+                      {project.subheader}
                     </p>
 
                     <div className="work_action" data-work-reveal>
                       <IconButton
                         href={project.href}
                         label="View project"
-                        ariaLabel={`View project: ${project.title}`}
+                        ariaLabel={`View project: ${project.subheader}`}
                         variant="secondary"
                       />
                     </div>
@@ -150,7 +198,7 @@ export function Work() {
                     <div className="work_media" data-work-reveal>
                       <Image
                         src={project.image}
-                        alt={`${project.client}, ${project.title}`}
+                        alt={project.subheader}
                         fill
                         sizes="(max-width: 767px) 90vw, 42vw"
                         className="work_media-img"

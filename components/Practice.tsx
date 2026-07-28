@@ -15,24 +15,24 @@ const PRACTICES = [
     title: "Research",
     promise: "We uncover the truths that move people and systems.",
     body: "Through deep qualitative work — interviews, synthesis, landscape mapping — we reveal the human tensions behind complex change.",
-    theme: "theme-plum",
+    theme: "theme-violet",
     landscape: "/practice-research-landscape.webp",
   },
   {
     number: "02",
-    title: "Narrative",
-    promise: "We translate insight into clarity and conviction.",
-    body: "We craft the story that aligns teams, inspires audiences, and makes belief possible through positioning, architecture, and brand narrative.",
-    theme: "theme-cream",
-    landscape: "/practice-narrative-landscape.webp",
-  },
-  {
-    number: "03",
     title: "Strategy",
     promise: "We design how ideas move through the world.",
     body: "From frameworks to expressions, we build systems that make the story tangible — through creative strategy, narrative toolkits, playbooks, and more.",
-    theme: "theme-violet",
+    theme: "theme-cream",
     landscape: "/practice-strategy-landscape.webp",
+  },
+  {
+    number: "03",
+    title: "Narrative",
+    promise: "We translate insight into clarity and conviction.",
+    body: "We craft the story that aligns teams, inspires audiences, and makes belief possible through positioning, architecture, and brand narrative.",
+    theme: "theme-plum",
+    landscape: "/practice-narrative-landscape.webp",
   },
 ];
 
@@ -137,21 +137,60 @@ export function Practice() {
                       One studio, three practices.
                     </h3>
 
-                    <ul className="practice-overview">
-                      {PRACTICES.map((item) => (
-                        <li key={item.number} className="practice-overview_item">
-                          <span className="practice-overview_number">
-                            {item.number}
-                          </span>
-                          <span className="practice-overview_title">
-                            {item.title}
-                          </span>
-                          <span className="practice-overview_promise">
-                            {item.promise}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="practice-cycle">
+                      <svg
+                        className="practice-cycle_ring"
+                        viewBox="0 0 200 200"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <defs>
+                          <marker
+                            id="practice-cycle-head"
+                            viewBox="0 0 12 12"
+                            refX="9"
+                            refY="6"
+                            markerWidth="11"
+                            markerHeight="11"
+                            markerUnits="userSpaceOnUse"
+                            orient="auto"
+                          >
+                            <path
+                              d="M2.5 2L9 6L2.5 10"
+                              fill="none"
+                              stroke="var(--theme-accent)"
+                              strokeWidth="1.4"
+                              strokeLinecap="square"
+                              strokeLinejoin="miter"
+                            />
+                          </marker>
+                        </defs>
+                        <path
+                          className="practice-cycle_arc"
+                          markerEnd="url(#practice-cycle-head)"
+                          d="M124.7 23.9 A80 80 0 0 1 178.3 116.6"
+                        />
+                        <path
+                          className="practice-cycle_arc"
+                          markerEnd="url(#practice-cycle-head)"
+                          d="M153.5 159.5 A80 80 0 0 1 46.5 159.5"
+                        />
+                        <path
+                          className="practice-cycle_arc"
+                          markerEnd="url(#practice-cycle-head)"
+                          d="M21.7 116.6 A80 80 0 0 1 75.3 23.9"
+                        />
+                      </svg>
+                      <span className="practice-cycle_node is-research">
+                        Research
+                      </span>
+                      <span className="practice-cycle_node is-strategy">
+                        Strategy
+                      </span>
+                      <span className="practice-cycle_node is-narrative">
+                        Narrative
+                      </span>
+                    </div>
                   </div>
                 </article>
 

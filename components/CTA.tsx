@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -15,7 +16,17 @@ const DEFAULT_HEADING = (
   </>
 );
 
-export function CTA({ heading = DEFAULT_HEADING }: { heading?: ReactNode }) {
+type CTAProps = {
+  heading?: ReactNode;
+  image?: string;
+  imageAlt?: string;
+};
+
+export function CTA({
+  heading = DEFAULT_HEADING,
+  image = "/founder.webp",
+  imageAlt = "Bruno Olmedo Quiroga, founder of Dragonflower",
+}: CTAProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -23,18 +34,34 @@ export function CTA({ heading = DEFAULT_HEADING }: { heading?: ReactNode }) {
       const section = sectionRef.current;
       if (!section) return;
 
-      const heading = section.querySelector<HTMLElement>("[data-cta-heading]");
+      const headingEl =
+        section.querySelector<HTMLElement>("[data-cta-heading]");
       const split =
-        heading &&
-        new SplitText(heading, {
+        headingEl &&
+        new SplitText(headingEl, {
           type: "lines",
           mask: "lines",
           linesClass: "split-line",
         });
 
-      heading?.classList.remove("split-pending");
+      headingEl?.classList.remove("split-pending");
 
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const start = { trigger: section, start: "top 72%", once: true } as const;
+
+      gsap
+        .timeline({ scrollTrigger: start })
+        .from(section.querySelector(".cta_media"), {
+          clipPath: "inset(0 0 0 100%)",
+          duration: 1.1,
+          ease: "expo.out",
+        })
+        .from(
+          section.querySelector(".cta_media img"),
+          { scale: 1.1, duration: 1.3, ease: "expo.out" },
+          0,
+        );
 
       const timeline = gsap.timeline({
         scrollTrigger: { trigger: section, start: "top 70%", once: true },
@@ -65,25 +92,30 @@ export function CTA({ heading = DEFAULT_HEADING }: { heading?: ReactNode }) {
       data-theme-section
       className="section_cta theme-plum"
     >
-      <div className="padding-global">
-        <div className="container-col-12">
-          <div className="cta_inner">
-            <h2
-              data-cta-heading
-              className="cta_heading heading-m split-pending"
-            >
-              {heading}
-            </h2>
+      <div className="cta_grid">
+        <div className="cta_content">
+          <h2 data-cta-heading className="cta_heading heading-m split-pending">
+            {heading}
+          </h2>
 
-            <div className="cta_action" data-cta-reveal>
-              <IconButton
-                href="/contact"
-                label="Let's talk"
-                ariaLabel="Let's talk"
-              />
-            </div>
+          <div className="cta_action" data-cta-reveal>
+            <IconButton
+              href="/contact"
+              label="Let's talk"
+              ariaLabel="Let's talk"
+            />
           </div>
         </div>
+
+        <figure className="cta_media">
+          <Image
+            src={image}
+            alt={imageAlt}
+            fill
+            sizes="(max-width: 767px) 100vw, 50vw"
+            className="cta_img"
+          />
+        </figure>
       </div>
     </section>
   );

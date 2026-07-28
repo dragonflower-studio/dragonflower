@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
+import { IconButton } from "@/components/IconButton";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -16,16 +17,16 @@ const STEPS = [
       "Qualitative interviews, landscape mapping, synthesis, workshops",
   },
   {
-    name: "Narrative",
-    promise: "builds the story around it",
-    capabilities:
-      "Positioning, architecture, storytelling, brand narrative, pitch decks",
-  },
-  {
     name: "Strategy",
     promise: "ensures it moves through the world",
     capabilities:
       "Narrative toolkits, playbooks, creative strategies, frameworks, campaigns",
+  },
+  {
+    name: "Narrative",
+    promise: "builds the story around it",
+    capabilities:
+      "Positioning, architecture, storytelling, brand narrative, pitch decks",
   },
 ];
 
@@ -106,6 +107,14 @@ export function Method() {
                 </div>
               </article>
             ))}
+          </div>
+
+          <div className="method_action" data-method-row>
+            <IconButton
+              href="/practice"
+              label="Read more about the practice"
+              variant="secondary"
+            />
           </div>
         </div>
       </div>

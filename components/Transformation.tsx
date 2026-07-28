@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
@@ -9,20 +9,46 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const PAIRS = [
-  { from: "Confusion", to: "Conviction" },
-  { from: "Data", to: "Desire" },
-  { from: "Insight", to: "Story" },
-  { from: "Noise", to: "Myth" },
+  {
+    from: "Confusion",
+    to: "Conviction",
+    description:
+      "We turn tangled complexity into a clear point of view people can act on.",
+  },
+  {
+    from: "Data",
+    to: "Desire",
+    description:
+      "We move past the numbers to the human wants that make people care.",
+  },
+  {
+    from: "Insight",
+    to: "Story",
+    description:
+      "We shape raw understanding into a narrative that carries meaning.",
+  },
+  {
+    from: "Noise",
+    to: "Myth",
+    description:
+      "We cut through the noise to build the enduring story a brand is known by.",
+  },
 ];
 
-function Chevron() {
+function ShiftArrow() {
   return (
-    <svg viewBox="0 0 8 12" fill="none" aria-hidden="true">
+    <svg
+      className="transform_arrow-svg"
+      viewBox="0 0 56 16"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
-        d="M1.5 1L6.5 6L1.5 11"
+        d="M1 8H48M40.5 2L48 8L40.5 14"
         stroke="currentColor"
-        strokeWidth="1.25"
-        strokeLinecap="square"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         vectorEffect="non-scaling-stroke"
       />
     </svg>
@@ -31,6 +57,7 @@ function Chevron() {
 
 export function Transformation() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   useGSAP(
     () => {
@@ -62,28 +89,20 @@ export function Transformation() {
         });
       }
 
-      gsap.utils.toArray<HTMLElement>("[data-transform-pair]").forEach((pair) => {
-        const from = pair.querySelector(".transform_word.is-from");
-        const line = pair.querySelector("[data-arrow-line]");
-        const head = pair.querySelector("[data-arrow-head]");
-        const to = pair.querySelector(".transform_word.is-to");
-
-        gsap
-          .timeline({
-            scrollTrigger: { trigger: pair, start: "top 82%", once: true },
-          })
-          .from(from, { opacity: 0, x: "-0.4em", duration: 0.6, ease: "power3.out" })
-          .from(line, { scaleX: 0, duration: 0.55, ease: "power2.inOut" }, "-=0.2")
-          .from(
-            head,
-            { opacity: 0, x: "-0.5em", duration: 0.35, ease: "power2.out" },
-            "-=0.1",
-          )
-          .from(
-            to,
-            { opacity: 0, x: "-0.4em", duration: 0.6, ease: "power3.out" },
-            "-=0.15",
-          );
+      const shifts = section.querySelectorAll(".transform_shift");
+      gsap.set(shifts, { opacity: 0, y: "1.2em" });
+      ScrollTrigger.create({
+        trigger: section.querySelector(".transform_list"),
+        start: "top 80%",
+        once: true,
+        onEnter: () =>
+          gsap.to(shifts, {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            stagger: 0.1,
+            ease: "power3.out",
+          }),
       });
     },
     { scope: sectionRef },
@@ -106,22 +125,41 @@ export function Transformation() {
           </h2>
 
           <ul className="transform_list">
-            {PAIRS.map((pair) => (
-              <li
-                key={pair.from}
-                className="transform_pair"
-                data-transform-pair
-              >
-                <span className="transform_word is-from">{pair.from}</span>
-                <span className="transform_arrow" aria-hidden="true">
-                  <span className="transform_arrow-line" data-arrow-line />
-                  <span className="transform_arrow-head" data-arrow-head>
-                    <Chevron />
-                  </span>
-                </span>
-                <span className="transform_word is-to">{pair.to}</span>
-              </li>
-            ))}
+            {PAIRS.map((pair, index) => {
+              const open = openIndex === index;
+              return (
+                <li
+                  key={pair.from}
+                  className={`transform_pair${open ? " is-open" : ""}`}
+                  data-transform-pair
+                >
+                  <button
+                    type="button"
+                    className="transform_shift"
+                    aria-expanded={open}
+                    aria-controls={`transform-desc-${index}`}
+                    onClick={() => setOpenIndex(open ? null : index)}
+                  >
+                    <span className="transform_word is-from">{pair.from}</span>
+                    <span className="transform_arrow" aria-hidden="true">
+                      <ShiftArrow />
+                    </span>
+                    <span className="transform_to-group">
+                      <span className="transform_word is-to">{pair.to}</span>
+                      <span className="transform_toggle" aria-hidden="true" />
+                    </span>
+                  </button>
+                  <div
+                    className="transform_desc-wrap"
+                    id={`transform-desc-${index}`}
+                  >
+                    <p className="transform_desc paragraph-s">
+                      {pair.description}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
