@@ -33,7 +33,6 @@ export default async function Home() {
           heading={page?.heroHeading}
           body={page?.heroBody}
           primaryCta={map.link(page?.heroPrimary ?? undefined)}
-          secondaryCta={map.link(page?.heroSecondary ?? undefined)}
           clients={clients.length ? map.marqueeItems(clients) : undefined}
           clientsLabel={page?.clientsLabel}
         />
@@ -62,6 +61,7 @@ export default async function Home() {
           practices={practices.length ? practices.map(map.practiceCard) : undefined}
           introHeading={page?.practiceIntroHeading}
           overviewStatement={page?.practiceOverviewStatement}
+          overviewBody={page?.practiceOverviewBody}
         />
         <CTA
           heading={page?.cta?.heading}

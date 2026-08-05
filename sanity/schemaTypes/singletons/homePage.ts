@@ -16,8 +16,7 @@ export const homePage = defineType({
   fields: [
     defineField({ name: "heroHeading", title: "Hero heading", type: "text", rows: 2, group: "hero" }),
     defineField({ name: "heroBody", title: "Hero body", type: "text", rows: 3, group: "hero" }),
-    defineField({ name: "heroPrimary", title: "Primary button", type: "link", group: "hero" }),
-    defineField({ name: "heroSecondary", title: "Secondary button", type: "link", group: "hero" }),
+    defineField({ name: "heroPrimary", title: "Button", type: "link", group: "hero" }),
     defineField({
       name: "clientsLabel",
       title: "Clients marquee label",
@@ -43,6 +42,7 @@ export const homePage = defineType({
 
     defineField({ name: "practiceIntroHeading", title: "Intro heading", type: "text", rows: 2, group: "practice" }),
     defineField({ name: "practiceOverviewStatement", title: "Overview statement", type: "string", group: "practice" }),
+    defineField({ name: "practiceOverviewBody", title: "Overview paragraph", type: "text", rows: 5, group: "practice", description: "Shown beside the cycle graph in the overview card." }),
 
     defineField({ name: "cta", title: "Call to action", type: "ctaBlock", group: "cta" }),
   ],

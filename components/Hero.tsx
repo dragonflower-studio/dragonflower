@@ -16,7 +16,6 @@ type HeroProps = {
   heading?: string;
   body?: string;
   primaryCta?: CtaLink;
-  secondaryCta?: CtaLink;
   clients?: MarqueeItem[];
   clientsLabel?: string;
 };
@@ -25,7 +24,6 @@ export function Hero({
   heading,
   body,
   primaryCta,
-  secondaryCta,
   clients = [],
   clientsLabel,
 }: HeroProps = {}) {
@@ -134,15 +132,6 @@ export function Hero({
                 </div>
 
                 <div className="btn-group">
-                  {secondaryCta && (
-                    <IconButton
-                      href={secondaryCta.href}
-                      label={secondaryCta.label}
-                      variant="secondary"
-                      withArrow={false}
-                      newTab={secondaryCta.newTab}
-                    />
-                  )}
                   {primaryCta && (
                     <IconButton
                       href={primaryCta.href}

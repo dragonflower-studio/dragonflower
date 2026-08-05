@@ -98,7 +98,6 @@ async function build() {
     heroBody:
       "We uncover the human truths within complex systems and turn them into stories, strategies, and movements people can believe in.",
     heroPrimary: lnk("Book a call", "/contact"),
-    heroSecondary: lnk("Practice", "/practice"),
     clientsLabel: "Clients & collaborators",
     breatherStatement: "We turn complexity into clarity — without losing the magic.",
     breatherLead:

@@ -56,13 +56,13 @@ const PROJECT = `{
 export const homeQuery = `{
   ${SETTINGS},
   "page": *[_type == "homePage"][0]{
-    heroHeading, heroBody, heroPrimary${LINK}, heroSecondary${LINK}, clientsLabel,
+    heroHeading, heroBody, heroPrimary${LINK}, clientsLabel,
     breatherStatement, breatherLead, breatherCta${LINK},
     founderName, founderRole, "founderPortrait": founderPortrait${IMG},
     "showcaseDesktop": showcaseDesktop${IMG}, "showcaseMobile": showcaseMobile${IMG},
     testimonialsLabel, testimonialsCta${LINK},
     workHeading,
-    practiceIntroHeading, practiceOverviewStatement,
+    practiceIntroHeading, practiceOverviewStatement, practiceOverviewBody,
     cta${CTA}
   },
   "clients": *[_type == "client"] | order(orderRank){ name, "logo": logo${IMG}, "scale": coalesce(scale, 1) },

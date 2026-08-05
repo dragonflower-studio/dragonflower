@@ -90,7 +90,6 @@ export type HomePageDoc = {
   heroHeading?: string;
   heroBody?: string;
   heroPrimary?: SanityLink;
-  heroSecondary?: SanityLink;
   clientsLabel?: string;
   breatherStatement?: string;
   breatherLead?: string;
@@ -105,6 +104,7 @@ export type HomePageDoc = {
   workHeading?: string;
   practiceIntroHeading?: string;
   practiceOverviewStatement?: string;
+  practiceOverviewBody?: string;
   cta: SanityCta;
 } | null;
 

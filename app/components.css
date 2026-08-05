@@ -485,7 +485,8 @@
 
 .hero-home_content h1 {
   width: 100%;
-  max-width: 12em;
+  font-size: var(--size-88);
+  max-width: 20em;
 }
 
 .hero-home_text-wrap {
@@ -602,6 +603,49 @@
   max-width: 14em;
 }
 
+.practice-overview_grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  gap: var(--size-48);
+  width: 100%;
+}
+
+.practice-overview_grid:has(.practice-overview_body) {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 3em;
+}
+
+.practice-overview_grid:has(.practice-overview_body) .practice-cycle {
+  grid-column: 2;
+}
+
+.practice-overview_body {
+  grid-column: 3;
+  justify-self: start;
+  align-self: center;
+  max-width: 24em;
+  opacity: 0.85;
+}
+
+@media screen and (max-width: 991px) {
+  .practice-overview_grid:has(.practice-overview_body) {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .practice-overview_grid:has(.practice-overview_body) .practice-cycle,
+  .practice-overview_body {
+    grid-column: auto;
+  }
+
+  .practice-overview_body {
+    justify-self: center;
+  }
+}
+
 .practice-cycle {
   position: relative;
   width: min(24em, 100%);
@@ -635,17 +679,17 @@
 
 .practice-cycle_node.is-research {
   left: 50%;
-  top: 10%;
+  top: 3%;
 }
 
 .practice-cycle_node.is-strategy {
-  left: 85%;
-  top: 70%;
+  left: 90%;
+  top: 73%;
 }
 
 .practice-cycle_node.is-narrative {
-  left: 15%;
-  top: 70%;
+  left: 10%;
+  top: 73%;
 }
 
 @media screen and (max-width: 767px) {

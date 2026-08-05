@@ -22,12 +22,14 @@ type PracticeProps = {
   practices?: PracticeCard[];
   introHeading?: string;
   overviewStatement?: string;
+  overviewBody?: string;
 };
 
 export function Practice({
   practices,
   introHeading,
   overviewStatement,
+  overviewBody,
 }: PracticeProps = {}) {
   const items = practices ?? [];
   const sectionRef = useRef<HTMLElement>(null);
@@ -130,59 +132,67 @@ export function Practice({
                       {overviewStatement}
                     </h3>
 
-                    <div className="practice-cycle">
-                      <svg
-                        className="practice-cycle_ring"
-                        viewBox="0 0 200 200"
-                        fill="none"
-                        aria-hidden="true"
-                      >
-                        <defs>
-                          <marker
-                            id="practice-cycle-head"
-                            viewBox="0 0 12 12"
-                            refX="9"
-                            refY="6"
-                            markerWidth="11"
-                            markerHeight="11"
-                            markerUnits="userSpaceOnUse"
-                            orient="auto"
-                          >
-                            <path
-                              d="M2.5 2L9 6L2.5 10"
-                              fill="none"
-                              stroke="var(--theme-accent)"
-                              strokeWidth="1.4"
-                              strokeLinecap="square"
-                              strokeLinejoin="miter"
-                            />
-                          </marker>
-                        </defs>
-                        <path
-                          className="practice-cycle_arc"
-                          markerEnd="url(#practice-cycle-head)"
-                          d="M124.7 23.9 A80 80 0 0 1 178.3 116.6"
-                        />
-                        <path
-                          className="practice-cycle_arc"
-                          markerEnd="url(#practice-cycle-head)"
-                          d="M153.5 159.5 A80 80 0 0 1 46.5 159.5"
-                        />
-                        <path
-                          className="practice-cycle_arc"
-                          markerEnd="url(#practice-cycle-head)"
-                          d="M21.7 116.6 A80 80 0 0 1 75.3 23.9"
-                        />
-                      </svg>
-                      <span className="practice-cycle_node is-research">
-                        Research
-                      </span>
-                      <span className="practice-cycle_node is-strategy">
-                        Strategy
-                      </span>
-                      <span className="practice-cycle_node is-narrative">
-                        Narrative
-                      </span>
+                    <div className="practice-overview_grid">
+                      <div className="practice-cycle">
+                        <svg
+                          className="practice-cycle_ring"
+                          viewBox="0 0 200 200"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <defs>
+                            <marker
+                              id="practice-cycle-head"
+                              viewBox="0 0 12 12"
+                              refX="9"
+                              refY="6"
+                              markerWidth="11"
+                              markerHeight="11"
+                              markerUnits="userSpaceOnUse"
+                              orient="auto"
+                            >
+                              <path
+                                d="M2.5 2L9 6L2.5 10"
+                                fill="none"
+                                stroke="var(--theme-accent)"
+                                strokeWidth="1.4"
+                                strokeLinecap="square"
+                                strokeLinejoin="miter"
+                              />
+                            </marker>
+                          </defs>
+                          <path
+                            className="practice-cycle_arc"
+                            markerEnd="url(#practice-cycle-head)"
+                            d="M124.7 23.9 A80 80 0 0 1 178.3 116.6"
+                          />
+                          <path
+                            className="practice-cycle_arc"
+                            markerEnd="url(#practice-cycle-head)"
+                            d="M153.5 159.5 A80 80 0 0 1 46.5 159.5"
+                          />
+                          <path
+                            className="practice-cycle_arc"
+                            markerEnd="url(#practice-cycle-head)"
+                            d="M21.7 116.6 A80 80 0 0 1 75.3 23.9"
+                          />
+                        </svg>
+                        <span className="practice-cycle_node is-research">
+                          Research
+                        </span>
+                        <span className="practice-cycle_node is-strategy">
+                          Strategy
+                        </span>
+                        <span className="practice-cycle_node is-narrative">
+                          Narrative
+                        </span>
+                      </div>
+
+                      {overviewBody && (
+                        <p className="practice-overview_body paragraph-s">
+                          {overviewBody}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </article>
