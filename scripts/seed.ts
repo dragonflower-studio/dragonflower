@@ -223,6 +223,7 @@ async function build() {
     title: "Ethereum — Project Mirror",
     slug: { _type: "slug", current: "ethereum" },
     orderRank: nextRank(),
+    featuredOnHome: true,
     cardHeader: "Understanding Ethereum's current narrative tensions and opportunities",
     cardSubheader: "Project Mirror",
     cardLogos: [
@@ -299,6 +300,7 @@ async function build() {
     title: "Good Energy — Climate Reality Check",
     slug: { _type: "slug", current: "good-energy" },
     orderRank: nextRank(),
+    featuredOnHome: true,
     cardHeader: "Revealing how climate shows up across film and television, and how it can do better",
     cardSubheader: "Climate Reality Check",
     cardLogos: [await logo("logos/good-energy.png", "Good Energy", 1.4)],
@@ -320,6 +322,7 @@ async function build() {
     title: "Plaid — Linkless Initiative",
     slug: { _type: "slug", current: "plaid" },
     orderRank: nextRank(),
+    featuredOnHome: true,
     cardHeader: "A new language of trust for the future of credit",
     cardSubheader: "Linkless Initiative",
     cardLogos: [await logo("logos/plaid.png", "Plaid", 1)],

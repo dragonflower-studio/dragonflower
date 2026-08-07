@@ -29,6 +29,15 @@ export const project = defineType({
     orderRankField({ type: "project" }),
 
     defineField({
+      name: "featuredOnHome",
+      title: "Show on homepage",
+      type: "boolean",
+      initialValue: true,
+      group: "home",
+      description:
+        'When off, this project is hidden from the homepage "Selected work" section but still appears on the Work page.',
+    }),
+    defineField({
       name: "cardHeader",
       title: "Card headline",
       type: "text",

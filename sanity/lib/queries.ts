@@ -67,7 +67,7 @@ export const homeQuery = `{
   },
   "clients": *[_type == "client"] | order(orderRank){ name, "logo": logo${IMG}, "scale": coalesce(scale, 1) },
   "testimonials": *[_type == "testimonial"] | order(orderRank){ quote, source },
-  "projects": *[_type == "project"] | order(orderRank)${PROJECT},
+  "projects": *[_type == "project" && featuredOnHome != false] | order(orderRank)${PROJECT},
   "practices": *[_type == "practiceItem"] | order(orderRank)${PRACTICE_ITEM}
 }`;
 
